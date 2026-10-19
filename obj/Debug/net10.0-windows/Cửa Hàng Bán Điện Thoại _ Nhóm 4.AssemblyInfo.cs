@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cửa Hàng Bán Điện Thoại _ Nhóm 4")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5e1936e6d2faf644e77de0c8ba2850653f3fc63")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cửa Hàng Bán Điện Thoại _ Nhóm 4")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cửa Hàng Bán Điện Thoại _ Nhóm 4")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
