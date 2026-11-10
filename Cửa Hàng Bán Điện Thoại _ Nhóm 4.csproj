@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="16.0.18925.20022" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.13" />
   </ItemGroup>
 

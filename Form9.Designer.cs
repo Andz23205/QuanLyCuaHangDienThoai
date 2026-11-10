@@ -30,12 +30,12 @@
         {
             label1 = new Label();
             groupBox1 = new GroupBox();
-            label2 = new Label();
-            label3 = new Label();
-            txtMaNhanVien = new TextBox();
             txtMatKhau = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            txtMaNhanVien = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
+            btnDangNhap = new Button();
+            btnThoat = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,9 +43,10 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label1.Location = new Point(296, 41);
+            label1.Location = new Point(481, 66);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(335, 38);
+            label1.Size = new Size(524, 60);
             label1.TabIndex = 0;
             label1.Text = "CỬA HÀNG ĐIỆN THOẠI ";
             label1.Click += label1_Click;
@@ -56,75 +57,85 @@
             groupBox1.Controls.Add(txtMaNhanVien);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(24, 107);
+            groupBox1.Location = new Point(39, 171);
+            groupBox1.Margin = new Padding(5);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(889, 181);
+            groupBox1.Padding = new Padding(5);
+            groupBox1.Size = new Size(1445, 290);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin đăng nhập ";
             // 
-            // label2
+            // txtMatKhau
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(35, 44);
-            label2.Name = "label2";
-            label2.Size = new Size(101, 20);
-            label2.TabIndex = 0;
-            label2.Text = "Mã nhân viên ";
+            txtMatKhau.Location = new Point(252, 198);
+            txtMatKhau.Margin = new Padding(5);
+            txtMatKhau.Name = "txtMatKhau";
+            txtMatKhau.Size = new Size(1150, 39);
+            txtMatKhau.TabIndex = 3;
+            // 
+            // txtMaNhanVien
+            // 
+            txtMaNhanVien.Location = new Point(252, 70);
+            txtMaNhanVien.Margin = new Padding(5);
+            txtMaNhanVien.Name = "txtMaNhanVien";
+            txtMaNhanVien.Size = new Size(1150, 39);
+            txtMaNhanVien.TabIndex = 2;
+            txtMaNhanVien.TextChanged += textBox1_TextChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(35, 124);
+            label3.Location = new Point(57, 198);
+            label3.Margin = new Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new Size(70, 20);
+            label3.Size = new Size(115, 32);
             label3.TabIndex = 1;
             label3.Text = "Mật khẩu";
             // 
-            // txtMaNhanVien
+            // label2
             // 
-            txtMaNhanVien.Location = new Point(155, 44);
-            txtMaNhanVien.Name = "txtMaNhanVien";
-            txtMaNhanVien.Size = new Size(709, 27);
-            txtMaNhanVien.TabIndex = 2;
-            txtMaNhanVien.TextChanged += textBox1_TextChanged;
+            label2.AutoSize = true;
+            label2.Location = new Point(57, 70);
+            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(168, 32);
+            label2.TabIndex = 0;
+            label2.Text = "Mã nhân viên ";
             // 
-            // txtMatKhau
+            // btnDangNhap
             // 
-            txtMatKhau.Location = new Point(155, 124);
-            txtMatKhau.Name = "txtMatKhau";
-            txtMatKhau.Size = new Size(709, 27);
-            txtMatKhau.TabIndex = 3;
+            btnDangNhap.BackColor = SystemColors.ScrollBar;
+            btnDangNhap.Location = new Point(291, 530);
+            btnDangNhap.Margin = new Padding(5);
+            btnDangNhap.Name = "btnDangNhap";
+            btnDangNhap.Size = new Size(242, 72);
+            btnDangNhap.TabIndex = 2;
+            btnDangNhap.Text = "&Đăng nhập";
+            btnDangNhap.UseVisualStyleBackColor = false;
+            btnDangNhap.Click += btnDangNhap_Click;
             // 
-            // button1
+            // btnThoat
             // 
-            button1.BackColor = SystemColors.ScrollBar;
-            button1.Location = new Point(179, 331);
-            button1.Name = "button1";
-            button1.Size = new Size(149, 45);
-            button1.TabIndex = 2;
-            button1.Text = "&Đăng nhập";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            button2.BackColor = SystemColors.ScrollBar;
-            button2.Location = new Point(414, 331);
-            button2.Name = "button2";
-            button2.Size = new Size(119, 45);
-            button2.TabIndex = 3;
-            button2.Text = "Th&oát";
-            button2.UseVisualStyleBackColor = false;
+            btnThoat.BackColor = SystemColors.ScrollBar;
+            btnThoat.Location = new Point(673, 530);
+            btnThoat.Margin = new Padding(5);
+            btnThoat.Name = "btnThoat";
+            btnThoat.Size = new Size(193, 72);
+            btnThoat.TabIndex = 3;
+            btnThoat.Text = "Th&oát";
+            btnThoat.UseVisualStyleBackColor = false;
             // 
             // Form9
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(940, 441);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            ClientSize = new Size(1528, 706);
+            Controls.Add(btnThoat);
+            Controls.Add(btnDangNhap);
             Controls.Add(groupBox1);
             Controls.Add(label1);
+            Margin = new Padding(5);
             Name = "Form9";
             Text = "Đăng nhập hệ thống ";
             Load += Form9_Load;
@@ -142,7 +153,7 @@
         private TextBox txtMaNhanVien;
         private Label label3;
         private Label label2;
-        private Button button1;
-        private Button button2;
+        private Button btnDangNhap;
+        private Button btnThoat;
     }
 }

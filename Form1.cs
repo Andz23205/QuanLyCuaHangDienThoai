@@ -233,18 +233,18 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     "SELECT COUNT(*) FROM tblHang WHERE MaHang = @ma",
                     KetNoiCSDL.Tham("@ma", txtMaHang.Text.Trim())));
                 if (dem > 0)
-            {
-                Loi("Mã hàng đã tồn tại, hãy nhập mã khác.", txtMaHang);
-                return;
-            }
+                {
+                    Loi("Mã hàng đã tồn tại, hãy nhập mã khác.", txtMaHang);
+                    return;
+                }
                 KetNoiCSDL.ThucThi(@"
                     INSERT INTO tblHang
                         (MaHang, TenHang, MaHangSX, MaLoai, MaMau, MaDungLuong, DonGiaNhap, DonGiaBan, SoLuongTon, Anh)
                     VALUES (@ma, @ten, @hang, @loai, @mau, @dl, @gn, @gb, @sl, @anh)", ThamSo(gn, gb, sl));
-            MessageBox.Show("Thêm thành công.");
+                MessageBox.Show("Thêm thành công.");
                 NapLuoi();
-            LamLai();
-        }
+                LamLai();
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thêm:\n" + ex.Message);
@@ -268,8 +268,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     WHERE MaHang = @ma", ThamSo(gn, gb, sl));
                 MessageBox.Show(n > 0 ? "Sửa thành công." : "Không tìm thấy mã hàng cần sửa.");
                 NapLuoi();
-            LamLai();
-        }
+                LamLai();
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi sửa:\n" + ex.Message);
@@ -291,8 +291,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     KetNoiCSDL.Tham("@ma", txtMaHang.Text.Trim()));
                 MessageBox.Show(n > 0 ? "Đã xóa." : "Không tìm thấy mã hàng cần xóa.");
                 NapLuoi();
-            LamLai();
-        }
+                LamLai();
+            }
             catch (SqlException ex) when (ex.Number == 547)   // vi phạm khóa ngoại
             {
                 MessageBox.Show("Không xóa được: mặt hàng này đã có trong hóa đơn bán hoặc hóa đơn nhập.",
@@ -337,8 +337,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             {
                 NapLuoi(txtTim.Text);
                 if (dgvHang.Rows.Count == 0)
-                MessageBox.Show("Không tìm thấy mặt hàng nào.");
-        }
+                    MessageBox.Show("Không tìm thấy mặt hàng nào.");
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tìm kiếm:\n" + ex.Message);

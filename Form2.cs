@@ -158,17 +158,17 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     KetNoiCSDL.Tham("@ma", txtMaNV.Text.Trim())));
                 if (dem > 0)
                 {
-                Loi("Mã nhân viên đã tồn tại, hãy nhập mã khác.", txtMaNV);
-                return;
-            }
+                    Loi("Mã nhân viên đã tồn tại, hãy nhập mã khác.", txtMaNV);
+                    return;
+                }
                 // Cột TenDangNhap để NULL (đăng nhập bằng mã nhân viên + mật khẩu)
                 KetNoiCSDL.ThucThi(@"
                     INSERT INTO tblNhanVien (MaNV, TenNV, GioiTinh, NgaySinh, SDT, DiaChi, VaiTro, MatKhau)
                     VALUES (@ma, @ten, @gt, @ns, @sdt, @dc, @vt, @mk)", ThamSo());
-            MessageBox.Show("Thêm thành công.");
+                MessageBox.Show("Thêm thành công.");
                 NapLuoi();
-            LamLai();
-        }
+                LamLai();
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thêm:\n" + ex.Message);
@@ -194,8 +194,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 int n = KetNoiCSDL.ThucThi(sql, ThamSo());
                 MessageBox.Show(n > 0 ? "Sửa thành công." : "Không tìm thấy nhân viên cần sửa.");
                 NapLuoi();
-            LamLai();
-        }
+                LamLai();
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi sửa:\n" + ex.Message);
@@ -217,8 +217,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     KetNoiCSDL.Tham("@ma", txtMaNV.Text.Trim()));
                 MessageBox.Show(n > 0 ? "Đã xóa." : "Không tìm thấy nhân viên cần xóa.");
                 NapLuoi();
-            LamLai();
-        }
+                LamLai();
+            }
             catch (SqlException ex) when (ex.Number == 547)   // vi phạm khóa ngoại
             {
                 MessageBox.Show("Không xóa được: nhân viên này đã lập hóa đơn bán hoặc hóa đơn nhập.",
@@ -259,8 +259,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             {
                 NapLuoi(txtTim.Text);
                 if (dgvNhanVien.Rows.Count == 0)
-                MessageBox.Show("Không tìm thấy nhân viên nào.");
-        }
+                    MessageBox.Show("Không tìm thấy nhân viên nào.");
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tìm kiếm:\n" + ex.Message);

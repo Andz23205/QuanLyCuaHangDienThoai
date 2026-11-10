@@ -83,6 +83,7 @@ CREATE TABLE [dbo].[tblHang](
 	[DonGiaBan] [decimal](18, 2) NOT NULL,
 	[DonGiaNhap] [decimal](18, 2) NOT NULL,
 	[SoLuongTon] [int] NOT NULL,
+	[Anh] [nvarchar](200) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[MaHang] ASC

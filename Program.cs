@@ -11,7 +11,13 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            using (Form9 dangNhap = new Form9())
+            {
+                if (dangNhap.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new Form10());
+                }
+            }
         }
     }
 }
