@@ -1,18 +1,20 @@
-﻿using System.Data;
-using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Windows.Forms;
 
 namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 {
-    // FORM 2: Quản lý nhân viên (frmNhanVien) - bản KHÔNG dùng SQL
     public partial class Form2 : Form
     {
-        private readonly DataView dvNV = new(DuLieuTam.NhanVien);
+        private readonly NhanVienBUS nhanVienBus = new NhanVienBUS();
+        private DataTable dtNV = new DataTable();
+        private DataView dvNV = new DataView();
 
         public Form2()
         {
             InitializeComponent();
 
-            // Gắn sự kiện bằng code (KHÔNG nhấp đúp vào nút trong Designer)
             Load += Form2_Load;
             btnThem.Click += btnThem_Click;
             btnSua.Click += btnSua_Click;
@@ -23,7 +25,6 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             dgvNhanVien.CellClick += dgvNhanVien_CellClick;
         }
 
-        // ---------- Khởi tạo ----------
         private void Form2_Load(object? sender, EventArgs e)
         {
             dtpNgaySinh.Format = DateTimePickerFormat.Custom;
@@ -34,7 +35,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
             cboChucVu.DropDownStyle = ComboBoxStyle.DropDownList;
             cboChucVu.Items.Clear();
-            cboChucVu.Items.AddRange(DuLieuTam.DanhSachChucVu);
+            cboChucVu.Items.AddRange(new object[] { "Quản lý", "Nhân viên", "Bán hàng", "Thu ngân", "Kho" });
 
             dgvNhanVien.ReadOnly = true;
             dgvNhanVien.AllowUserToAddRows = false;
@@ -43,136 +44,160 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             dgvNhanVien.RowHeadersVisible = false;
             dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dvNV.Sort = "MaNV";
-            dgvNhanVien.DataSource = dvNV;
-
-            var tieuDe = new Dictionary<string, string>
-            {
-                ["MaNV"] = "Mã NV",
-                ["TenNV"] = "Họ tên",
-                ["NgaySinh"] = "Ngày sinh",
-                ["GioiTinh"] = "Giới tính",
-                ["SDT"] = "Số ĐT",
-                ["DiaChi"] = "Địa chỉ",
-                ["ChucVu"] = "Chức vụ"
-            };
-            foreach (var kv in tieuDe) dgvNhanVien.Columns[kv.Key]!.HeaderText = kv.Value;
-            dgvNhanVien.Columns["NgaySinh"]!.DefaultCellStyle.Format = "dd/MM/yyyy";
-            dgvNhanVien.Columns["Passw"]!.Visible = false;   // không hiện mật khẩu trên lưới
-
+            LoadData();
             LamLai();
         }
 
-        // ---------- Đổ dữ liệu khi bấm vào dòng ----------
+        private void LoadData()
+        {
+            try
+            {
+                // Goi qua tang BUS
+                dtNV = nhanVienBus.LayDanhSach();
+                dvNV = new DataView(dtNV);
+                dgvNhanVien.DataSource = dvNV;
+
+                var tieuDe = new Dictionary<string, string>
+                {
+                    ["MaNV"] = "Mã NV",
+                    ["TenNV"] = "Họ tên",
+                    ["GioiTinh"] = "Giới tính",
+                    ["NgaySinh"] = "Ngày sinh",
+                    ["SDT"] = "Số ĐT",
+                    ["DiaChi"] = "Địa chỉ",
+                    ["ChucVu"] = "Chức vụ"
+                };
+
+                foreach (var kv in tieuDe)
+                {
+                    if (dgvNhanVien.Columns.Contains(kv.Key))
+                        dgvNhanVien.Columns[kv.Key]!.HeaderText = kv.Value;
+                }
+
+                if (dgvNhanVien.Columns.Contains("NgaySinh"))
+                    dgvNhanVien.Columns["NgaySinh"]!.DefaultCellStyle.Format = "dd/MM/yyyy";
+
+                if (dgvNhanVien.Columns.Contains("MatKhau"))
+                    dgvNhanVien.Columns["MatKhau"]!.Visible = false;
+
+                if (dgvNhanVien.Columns.Contains("TenDangNhap"))
+                    dgvNhanVien.Columns["TenDangNhap"]!.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách nhân viên: " + ex.Message);
+            }
+        }
+
         private void dgvNhanVien_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             if (dgvNhanVien.Rows[e.RowIndex].DataBoundItem is not DataRowView r) return;
 
             txtMaNV.Text = r["MaNV"].ToString();
-            txtMaNV.ReadOnly = true;                          // khóa chính, không cho sửa
+            txtMaNV.ReadOnly = true;
             txtTenNV.Text = r["TenNV"].ToString();
 
             if (r["NgaySinh"] is DateTime ns)
-                dtpNgaySinh.Value = ns < dtpNgaySinh.MinDate ? dtpNgaySinh.MinDate
-                                  : ns > dtpNgaySinh.MaxDate ? dtpNgaySinh.MaxDate : ns;
+                dtpNgaySinh.Value = ns <= dtpNgaySinh.MaxDate && ns >= dtpNgaySinh.MinDate ? ns : dtpNgaySinh.MaxDate;
 
-            bool nu = r["GioiTinh"].ToString() == "Nữ";
-            radNu.Checked = nu;
-            radNam.Checked = !nu;
+            string gt = r["GioiTinh"]?.ToString() ?? "Nam";
+            radNu.Checked = gt.Equals("Nữ", StringComparison.OrdinalIgnoreCase);
+            radNam.Checked = !radNu.Checked;
 
-            txtSDT.Text = r["SDT"].ToString();
-            txtDiaChi.Text = r["DiaChi"].ToString();
-            cboChucVu.SelectedItem = r["ChucVu"].ToString();
+            txtSDT.Text = r["SDT"]?.ToString() ?? "";
+            txtDiaChi.Text = r["DiaChi"]?.ToString() ?? "";
 
-            // Để trống: nếu bấm Sửa mà không nhập thì giữ nguyên mật khẩu cũ
-            txtMatKhau.Clear();
+            string chucVu = r["ChucVu"]?.ToString() ?? "";
+            cboChucVu.SelectedIndex = cboChucVu.FindStringExact(chucVu);
+
+            txtMatKhau.Text = r["MatKhau"]?.ToString() ?? "";
         }
 
-        // ---------- Kiểm tra dữ liệu ----------
-        private static void Loi(string noiDung, Control c)
+        private NhanVien TaoDoiTuongNhanVien()
         {
-            MessageBox.Show(noiDung, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            c.Focus();
+            return new NhanVien(
+                txtMaNV.Text.Trim(),
+                txtTenNV.Text.Trim(),
+                radNu.Checked ? "Nữ" : "Nam",
+                dtpNgaySinh.Value.Date,
+                txtSDT.Text.Trim(),
+                txtDiaChi.Text.Trim(),
+                txtMaNV.Text.Trim().ToLower(),
+                txtMatKhau.Text.Trim(),
+                cboChucVu.Text
+            );
         }
 
-        private bool KiemTra(bool batBuocMatKhau)
-        {
-            if (string.IsNullOrWhiteSpace(txtMaNV.Text)) { Loi("Chưa nhập mã nhân viên.", txtMaNV); return false; }
-            if (string.IsNullOrWhiteSpace(txtTenNV.Text)) { Loi("Chưa nhập họ tên.", txtTenNV); return false; }
-            if (!radNam.Checked && !radNu.Checked) { Loi("Chưa chọn giới tính.", radNam); return false; }
-            if (!Regex.IsMatch(txtSDT.Text.Trim(), @"^0\d{9}$"))
-            { Loi("Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.", txtSDT); return false; }
-            if (cboChucVu.SelectedIndex < 0) { Loi("Chưa chọn chức vụ.", cboChucVu); return false; }
-            if (string.IsNullOrWhiteSpace(txtDiaChi.Text)) { Loi("Chưa nhập địa chỉ.", txtDiaChi); return false; }
-            if (batBuocMatKhau && string.IsNullOrEmpty(txtMatKhau.Text))
-            { Loi("Chưa nhập mật khẩu.", txtMatKhau); return false; }
-            return true;
-        }
-
-        // ---------- Thêm / Sửa / Xóa / Làm lại / Tìm ----------
         private void btnThem_Click(object? sender, EventArgs e)
         {
-            if (!KiemTra(batBuocMatKhau: true)) return;
-            string ma = txtMaNV.Text.Trim();
-            if (DuLieuTam.NhanVien.Rows.Find(ma) != null)
+            NhanVien nv = TaoDoiTuongNhanVien();
+
+            // Thuc hien qua tang BUS
+            if (nhanVienBus.Them(nv, out string error))
             {
-                Loi("Mã nhân viên đã tồn tại, hãy nhập mã khác.", txtMaNV);
-                return;
+                MessageBox.Show("Thêm nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+                LamLai();
             }
-            DuLieuTam.NhanVien.Rows.Add(ma, txtTenNV.Text.Trim(), dtpNgaySinh.Value.Date,
-                radNam.Checked ? "Nam" : "Nữ", txtSDT.Text.Trim(), txtDiaChi.Text.Trim(),
-                cboChucVu.SelectedItem!.ToString(), txtMatKhau.Text);
-            MessageBox.Show("Thêm thành công.");
-            LamLai();
+            else
+            {
+                MessageBox.Show(error, "Lỗi thêm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnSua_Click(object? sender, EventArgs e)
         {
             if (!txtMaNV.ReadOnly)
             {
-                MessageBox.Show("Hãy bấm chọn một dòng trong danh sách để sửa.");
+                MessageBox.Show("Hãy chọn một nhân viên trong danh sách để sửa.");
                 return;
             }
-            if (!KiemTra(batBuocMatKhau: false)) return;
 
-            var row = DuLieuTam.NhanVien.Rows.Find(txtMaNV.Text.Trim());
-            if (row == null) { MessageBox.Show("Không tìm thấy nhân viên cần sửa."); return; }
+            NhanVien nv = TaoDoiTuongNhanVien();
 
-            row["TenNV"] = txtTenNV.Text.Trim();
-            row["NgaySinh"] = dtpNgaySinh.Value.Date;
-            row["GioiTinh"] = radNam.Checked ? "Nam" : "Nữ";
-            row["SDT"] = txtSDT.Text.Trim();
-            row["DiaChi"] = txtDiaChi.Text.Trim();
-            row["ChucVu"] = cboChucVu.SelectedItem!.ToString();
-            if (txtMatKhau.Text.Length > 0) row["Passw"] = txtMatKhau.Text;   // để trống = giữ mật khẩu cũ
-
-            MessageBox.Show("Sửa thành công.");
-            LamLai();
+            // Thuc hien qua tang BUS
+            if (nhanVienBus.Sua(nv, out string error))
+            {
+                MessageBox.Show("Cập nhật nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+                LamLai();
+            }
+            else
+            {
+                MessageBox.Show(error, "Lỗi sửa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnXoa_Click(object? sender, EventArgs e)
         {
             if (!txtMaNV.ReadOnly)
             {
-                MessageBox.Show("Hãy bấm chọn một dòng trong danh sách để xóa.");
+                MessageBox.Show("Hãy chọn một nhân viên trong danh sách để xóa.");
                 return;
             }
-            if (MessageBox.Show($"Xóa nhân viên {txtMaNV.Text} - {txtTenNV.Text}?", "Xác nhận",
+
+            string ma = txtMaNV.Text.Trim();
+            if (MessageBox.Show($"Bạn có chắc chắn muốn xóa nhân viên {ma}?", "Xác nhận",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
-            var row = DuLieuTam.NhanVien.Rows.Find(txtMaNV.Text.Trim());
-            if (row == null) { MessageBox.Show("Không tìm thấy nhân viên cần xóa."); return; }
-
-            DuLieuTam.NhanVien.Rows.Remove(row);
-            MessageBox.Show("Đã xóa.");
-            LamLai();
+            // Thuc hien qua tang BUS
+            if (nhanVienBus.Xoa(ma, out string error))
+            {
+                MessageBox.Show("Đã xóa nhân viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+                LamLai();
+            }
+            else
+            {
+                MessageBox.Show(error, "Lỗi xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnLamLai_Click(object? sender, EventArgs e)
         {
             txtTim.Clear();
-            dvNV.RowFilter = "";
+            if (dvNV != null) dvNV.RowFilter = "";
             LamLai();
         }
 
@@ -181,22 +206,24 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             txtMaNV.ReadOnly = false;
             txtMaNV.Clear();
             txtTenNV.Clear();
+            dtpNgaySinh.Value = DateTime.Today;
+            radNam.Checked = true;
+            radNu.Checked = false;
             txtSDT.Clear();
             txtDiaChi.Clear();
-            txtMatKhau.Clear();
-            dtpNgaySinh.Value = DateTime.Today.AddYears(-20);
-            radNam.Checked = true;
             cboChucVu.SelectedIndex = -1;
+            txtMatKhau.Clear();
             dgvNhanVien.ClearSelection();
             txtMaNV.Focus();
         }
 
         private void btnTim_Click(object? sender, EventArgs e)
         {
-            string tk = txtTim.Text.Trim();
-            dvNV.RowFilter = tk.Length == 0 ? "" : $"TenNV LIKE '%{DuLieuTam.ThoatLike(tk)}%'";
+            string tk = txtTim.Text.Trim().Replace("'", "''");
+            if (dvNV == null) return;
+            dvNV.RowFilter = tk.Length == 0 ? "" : $"TenNV LIKE '%{tk}%' OR MaNV LIKE '%{tk}%' OR SDT LIKE '%{tk}%'";
             if (dvNV.Count == 0)
-                MessageBox.Show("Không tìm thấy nhân viên nào.");
+                MessageBox.Show("Không tìm thấy nhân viên nào phù hợp.");
         }
     }
 }

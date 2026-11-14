@@ -92,7 +92,6 @@
             đIệnThoạiToolStripMenuItem.Name = "đIệnThoạiToolStripMenuItem";
             đIệnThoạiToolStripMenuItem.Size = new Size(305, 26);
             đIệnThoạiToolStripMenuItem.Text = "ĐIện thoại (frmHang)";
-            đIệnThoạiToolStripMenuItem.Click += đIệnThoạiToolStripMenuItem_Click;
             // 
             // danhMụcFrmDanhMucToolStripMenuItem
             // 
@@ -135,7 +134,6 @@
             tslNhanVien.Spring = true;
             tslNhanVien.Text = "Nhân viên:";
             tslNhanVien.TextAlign = ContentAlignment.MiddleLeft;
-            tslNhanVien.Click += toolStripStatusLabel1_Click;
             // 
             // tslNgay
             // 

@@ -1,6 +1,6 @@
 ﻿namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 {
-    partial class frmDanhMuc
+    partial class Form5
     {
         /// <summary>
         /// Required designer variable.

@@ -30,10 +30,10 @@
         {
             label1 = new Label();
             groupBox1 = new GroupBox();
-            label2 = new Label();
-            label3 = new Label();
-            txtMaNhanVien = new TextBox();
             txtMatKhau = new TextBox();
+            txtMaNhanVien = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
             button1 = new Button();
             button2 = new Button();
             groupBox1.SuspendLayout();
@@ -48,7 +48,7 @@
             label1.Size = new Size(335, 38);
             label1.TabIndex = 0;
             label1.Text = "CỬA HÀNG ĐIỆN THOẠI ";
-            label1.Click += label1_Click;
+        
             // 
             // groupBox1
             // 
@@ -63,14 +63,19 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin đăng nhập ";
             // 
-            // label2
+            // txtMatKhau
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(35, 44);
-            label2.Name = "label2";
-            label2.Size = new Size(101, 20);
-            label2.TabIndex = 0;
-            label2.Text = "Mã nhân viên ";
+            txtMatKhau.Location = new Point(155, 124);
+            txtMatKhau.Name = "txtMatKhau";
+            txtMatKhau.Size = new Size(709, 27);
+            txtMatKhau.TabIndex = 3;
+            // 
+            // txtMaNhanVien
+            // 
+            txtMaNhanVien.Location = new Point(155, 44);
+            txtMaNhanVien.Name = "txtMaNhanVien";
+            txtMaNhanVien.Size = new Size(709, 27);
+            txtMaNhanVien.TabIndex = 2;
             // 
             // label3
             // 
@@ -81,20 +86,14 @@
             label3.TabIndex = 1;
             label3.Text = "Mật khẩu";
             // 
-            // txtMaNhanVien
+            // label2
             // 
-            txtMaNhanVien.Location = new Point(155, 44);
-            txtMaNhanVien.Name = "txtMaNhanVien";
-            txtMaNhanVien.Size = new Size(709, 27);
-            txtMaNhanVien.TabIndex = 2;
-            txtMaNhanVien.TextChanged += textBox1_TextChanged;
-            // 
-            // txtMatKhau
-            // 
-            txtMatKhau.Location = new Point(155, 124);
-            txtMatKhau.Name = "txtMatKhau";
-            txtMatKhau.Size = new Size(709, 27);
-            txtMatKhau.TabIndex = 3;
+            label2.AutoSize = true;
+            label2.Location = new Point(35, 44);
+            label2.Name = "label2";
+            label2.Size = new Size(101, 20);
+            label2.TabIndex = 0;
+            label2.Text = "Mã nhân viên ";
             // 
             // button1
             // 
@@ -127,7 +126,6 @@
             Controls.Add(label1);
             Name = "Form9";
             Text = "Đăng nhập hệ thống ";
-            Load += Form9_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);

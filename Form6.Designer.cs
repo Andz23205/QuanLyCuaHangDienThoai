@@ -121,7 +121,6 @@
             txtTenHang.Name = "txtTenHang";
             txtTenHang.Size = new Size(219, 27);
             txtTenHang.TabIndex = 1;
-            txtTenHang.TextChanged += textBox1_TextChanged;
             // 
             // label3
             // 
@@ -140,7 +139,6 @@
             label4.Size = new Size(60, 20);
             label4.TabIndex = 0;
             label4.Text = "Giá đến";
-            label4.Click += label4_Click;
             // 
             // txtGiaTu
             // 

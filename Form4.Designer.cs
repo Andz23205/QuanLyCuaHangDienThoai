@@ -30,6 +30,7 @@
         {
             btnThoat = new Button();
             groupBox5 = new GroupBox();
+            button1 = new Button();
             txtTim = new TextBox();
             label6 = new Label();
             label8 = new Label();
@@ -38,6 +39,12 @@
             btnThem = new Button();
             groupBox4 = new GroupBox();
             dgvKhachHang = new DataGridView();
+            colMaNCC = new DataGridViewTextBoxColumn();
+            colTenNCC = new DataGridViewTextBoxColumn();
+            colSDT = new DataGridViewTextBoxColumn();
+            colEmail = new DataGridViewTextBoxColumn();
+            colDiaChi = new DataGridViewTextBoxColumn();
+            colNguoiLH = new DataGridViewTextBoxColumn();
             btnLamLai = new Button();
             label7 = new Label();
             groupBox2 = new GroupBox();
@@ -53,15 +60,8 @@
             label1 = new Label();
             groupBox3 = new GroupBox();
             groupBox1 = new GroupBox();
-            label11 = new Label();
             txtNguoiLH = new TextBox();
-            button1 = new Button();
-            colMaNCC = new DataGridViewTextBoxColumn();
-            colTenNCC = new DataGridViewTextBoxColumn();
-            colSDT = new DataGridViewTextBoxColumn();
-            colEmail = new DataGridViewTextBoxColumn();
-            colDiaChi = new DataGridViewTextBoxColumn();
-            colNguoiLH = new DataGridViewTextBoxColumn();
+            label11 = new Label();
             groupBox5.SuspendLayout();
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKhachHang).BeginInit();
@@ -91,6 +91,16 @@
             groupBox5.TabIndex = 9;
             groupBox5.TabStop = false;
             groupBox5.Text = "Tìm nhanh";
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ControlLight;
+            button1.Location = new Point(239, 44);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 38);
+            button1.TabIndex = 2;
+            button1.Text = "&Tìm";
+            button1.UseVisualStyleBackColor = false;
             // 
             // txtTim
             // 
@@ -170,6 +180,48 @@
             dgvKhachHang.RowHeadersWidth = 51;
             dgvKhachHang.Size = new Size(1107, 208);
             dgvKhachHang.TabIndex = 0;
+            // 
+            // colMaNCC
+            // 
+            colMaNCC.HeaderText = "Mã NCC";
+            colMaNCC.MinimumWidth = 6;
+            colMaNCC.Name = "colMaNCC";
+            colMaNCC.ReadOnly = true;
+            // 
+            // colTenNCC
+            // 
+            colTenNCC.HeaderText = "Tên NCC";
+            colTenNCC.MinimumWidth = 6;
+            colTenNCC.Name = "colTenNCC";
+            colTenNCC.ReadOnly = true;
+            // 
+            // colSDT
+            // 
+            colSDT.HeaderText = "Số ĐT";
+            colSDT.MinimumWidth = 6;
+            colSDT.Name = "colSDT";
+            colSDT.ReadOnly = true;
+            // 
+            // colEmail
+            // 
+            colEmail.HeaderText = "Email";
+            colEmail.MinimumWidth = 6;
+            colEmail.Name = "colEmail";
+            colEmail.ReadOnly = true;
+            // 
+            // colDiaChi
+            // 
+            colDiaChi.HeaderText = "Địa chỉ";
+            colDiaChi.MinimumWidth = 6;
+            colDiaChi.Name = "colDiaChi";
+            colDiaChi.ReadOnly = true;
+            // 
+            // colNguoiLH
+            // 
+            colNguoiLH.HeaderText = "Người liên hệ";
+            colNguoiLH.MinimumWidth = 6;
+            colNguoiLH.Name = "colNguoiLH";
+            colNguoiLH.ReadOnly = true;
             // 
             // btnLamLai
             // 
@@ -316,6 +368,13 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin nhà cung cấp";
             // 
+            // txtNguoiLH
+            // 
+            txtNguoiLH.Location = new Point(135, 208);
+            txtNguoiLH.Name = "txtNguoiLH";
+            txtNguoiLH.Size = new Size(216, 27);
+            txtNguoiLH.TabIndex = 3;
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -324,65 +383,6 @@
             label11.Size = new Size(103, 20);
             label11.TabIndex = 2;
             label11.Text = "Người liên hệ ";
-            // 
-            // txtNguoiLH
-            // 
-            txtNguoiLH.Location = new Point(135, 208);
-            txtNguoiLH.Name = "txtNguoiLH";
-            txtNguoiLH.Size = new Size(216, 27);
-            txtNguoiLH.TabIndex = 3;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.ControlLight;
-            button1.Location = new Point(239, 44);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 38);
-            button1.TabIndex = 2;
-            button1.Text = "&Tìm";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // colMaNCC
-            // 
-            colMaNCC.HeaderText = "Mã NCC";
-            colMaNCC.MinimumWidth = 6;
-            colMaNCC.Name = "colMaNCC";
-            colMaNCC.ReadOnly = true;
-            // 
-            // colTenNCC
-            // 
-            colTenNCC.HeaderText = "Tên NCC";
-            colTenNCC.MinimumWidth = 6;
-            colTenNCC.Name = "colTenNCC";
-            colTenNCC.ReadOnly = true;
-            // 
-            // colSDT
-            // 
-            colSDT.HeaderText = "Số ĐT";
-            colSDT.MinimumWidth = 6;
-            colSDT.Name = "colSDT";
-            colSDT.ReadOnly = true;
-            // 
-            // colEmail
-            // 
-            colEmail.HeaderText = "Email";
-            colEmail.MinimumWidth = 6;
-            colEmail.Name = "colEmail";
-            colEmail.ReadOnly = true;
-            // 
-            // colDiaChi
-            // 
-            colDiaChi.HeaderText = "Địa chỉ";
-            colDiaChi.MinimumWidth = 6;
-            colDiaChi.Name = "colDiaChi";
-            colDiaChi.ReadOnly = true;
-            // 
-            // colNguoiLH
-            // 
-            colNguoiLH.HeaderText = "Người liên hệ";
-            colNguoiLH.MinimumWidth = 6;
-            colNguoiLH.Name = "colNguoiLH";
-            colNguoiLH.ReadOnly = true;
             // 
             // Form4
             // 

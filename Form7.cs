@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
-using Excel = Microsoft.Office.Interop.Excel;
+using ClosedXML.Excel;
 using System.IO;
 
 namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
@@ -977,157 +977,91 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 return;
             }
 
-            using (SaveFileDialog sfd = new SaveFileDialog())
+            using SaveFileDialog sfd = new SaveFileDialog
             {
-                sfd.Filter = "Excel Workbook (*.xlsx)|*.xlsx";
-                sfd.FileName = "HoaDon_" + maHD + ".xlsx";
-                sfd.Title = "Lưu hóa đơn Excel";
+                Filter = "Excel Workbook (*.xlsx)|*.xlsx",
+                FileName = "HoaDon_" + maHD + ".xlsx",
+                Title = "Lưu hóa đơn Excel"
+            };
 
-                if (sfd.ShowDialog() != DialogResult.OK)
-                    return;
+            if (sfd.ShowDialog() != DialogResult.OK) return;
 
-                Excel.Application excelApp = null;
-                Excel.Workbook workbook = null;
-                Excel.Worksheet sheet = null;
+            try
+            {
+                using var wb = new XLWorkbook();
+                var sheet = wb.Worksheets.Add("HoaDonBan");
 
-                try
+                // Tiêu đề
+                sheet.Cell(1, 1).Value = "HÓA ĐƠN BÁN HÀNG";
+                var title = sheet.Range("A1:G1");
+                title.Merge();
+                title.Style.Font.Bold = true;
+                title.Style.Font.FontSize = 16;
+                title.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                // Thông tin hóa đơn
+                sheet.Cell(3, 1).Value = "Mã hóa đơn:"; sheet.Cell(3, 2).Value = maHD;
+                sheet.Cell(4, 1).Value = "Ngày lập:";    sheet.Cell(4, 2).Value = dtpNgayLap.Value.ToString("dd/MM/yyyy");
+                sheet.Cell(5, 1).Value = "Mã nhân viên:"; sheet.Cell(5, 2).Value = txtMaNV.Text;
+                sheet.Cell(6, 1).Value = "Tên nhân viên:"; sheet.Cell(6, 2).Value = txtTenNV.Text;
+                sheet.Cell(5, 4).Value = "Mã khách hàng:"; sheet.Cell(5, 5).Value = txtMaKH.Text;
+                sheet.Cell(6, 4).Value = "Tên khách hàng:"; sheet.Cell(6, 5).Value = txtTenKH.Text;
+                sheet.Cell(7, 4).Value = "SĐT khách:"; sheet.Cell(7, 5).Value = txtSDT.Text;
+                sheet.Cell(8, 4).Value = "Địa chỉ:"; sheet.Cell(8, 5).Value = txtDiaChi.Text;
+
+                // Header bảng
+                int dongTieuDe = 10;
+                string[] headers = { "Mã hàng", "Tên hàng", "Đơn giá", "Số lượng", "Giảm giá (%)", "Thành tiền" };
+                for (int i = 0; i < headers.Length; i++)
                 {
-                    excelApp = new Excel.Application();
-                    workbook = excelApp.Workbooks.Add();
-                    sheet = (Excel.Worksheet)workbook.Worksheets[1];
+                    var hcell = sheet.Cell(dongTieuDe, i + 1);
+                    hcell.Value = headers[i];
+                    hcell.Style.Font.Bold = true;
+                    hcell.Style.Fill.BackgroundColor = XLColor.LightGray;
+                    hcell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                }
 
-                    // Tieu de
-                    sheet.Cells[1, 1] = "HÓA ĐƠN BÁN HÀNG";
-                    Excel.Range title = sheet.Range["A1", "G1"];
-                    title.Merge();
-                    title.Font.Bold = true;
-                    title.Font.Size = 16;
-                    title.HorizontalAlignment =
-                        Excel.XlHAlign.xlHAlignCenter;
-
-                    // Thong tin hoa don
-                    sheet.Cells[3, 1] = "Mã hóa đơn:";
-                    sheet.Cells[3, 2] = maHD;
-                    sheet.Cells[4, 1] = "Ngày lập:";
-                    sheet.Cells[4, 2] = dtpNgayLap.Value.ToString("dd/MM/yyyy");
-
-                    sheet.Cells[5, 1] = "Mã nhân viên:";
-                    sheet.Cells[5, 2] = txtMaNV.Text;
-                    sheet.Cells[6, 1] = "Tên nhân viên:";
-                    sheet.Cells[6, 2] = txtTenNV.Text;
-
-                    sheet.Cells[5, 4] = "Mã khách hàng:";
-                    sheet.Cells[5, 5] = txtMaKH.Text;
-                    sheet.Cells[6, 4] = "Tên khách hàng:";
-                    sheet.Cells[6, 5] = txtTenKH.Text;
-                    sheet.Cells[7, 4] = "SĐT khách:";
-                    sheet.Cells[7, 5] = txtSDT.Text;
-                    sheet.Cells[8, 4] = "Địa chỉ:";
-                    sheet.Cells[8, 5] = txtDiaChi.Text;
-
-                    // Tieu de bang chi tiet
-                    int dongTieuDe = 10;
-
-                    sheet.Cells[dongTieuDe, 1] = "Mã hàng";
-                    sheet.Cells[dongTieuDe, 2] = "Tên hàng";
-                    sheet.Cells[dongTieuDe, 3] = "Đơn giá";
-                    sheet.Cells[dongTieuDe, 4] = "Số lượng";
-                    sheet.Cells[dongTieuDe, 5] = "Giảm giá (%)";
-                    sheet.Cells[dongTieuDe, 6] = "Thành tiền";
-
-                    Excel.Range header = sheet.Range[
-                        "A" + dongTieuDe, "F" + dongTieuDe];
-
-                    header.Font.Bold = true;
-                    header.Interior.Color =
-                        System.Drawing.Color.LightGray;
-                    header.Borders.LineStyle =
-                        Excel.XlLineStyle.xlContinuous;
-
-                    // Ghi danh sach hang
-                    int dong = dongTieuDe + 1;
-                    decimal tongTien = 0;
-
-                    foreach (DataRow row in bangChiTiet.Rows)
-                    {
-                        sheet.Cells[dong, 1] = row["MaHang"].ToString();
-                        sheet.Cells[dong, 2] = row["TenHang"].ToString();
-                        sheet.Cells[dong, 3] =
-                            Convert.ToDecimal(row["DonGia"]);
-                        sheet.Cells[dong, 4] =
-                            Convert.ToInt32(row["SoLuong"]);
-                        sheet.Cells[dong, 5] =
-                            Convert.ToDecimal(row["GiamGia"]);
-                        sheet.Cells[dong, 6] =
-                            Convert.ToDecimal(row["ThanhTien"]);
-
-                        tongTien += Convert.ToDecimal(row["ThanhTien"]);
-                        dong++;
-                    }
-
-                    // Dinh dang tien te
-                    sheet.Range["C11", "C" + (dong - 1)].NumberFormat = "#,##0";
-                    sheet.Range["F11", "F" + (dong - 1)].NumberFormat = "#,##0";
-
-                    Excel.Range detail = sheet.Range[
-                        "A" + dongTieuDe, "F" + (dong - 1)];
-
-                    detail.Borders.LineStyle =
-                        Excel.XlLineStyle.xlContinuous;
-
-                    // Tong tien
+                // Dữ liệu
+                int dong = dongTieuDe + 1;
+                decimal tongTien = 0;
+                foreach (DataRow row in bangChiTiet.Rows)
+                {
+                    sheet.Cell(dong, 1).Value = row["MaHang"].ToString();
+                    sheet.Cell(dong, 2).Value = row["TenHang"].ToString();
+                    sheet.Cell(dong, 3).Value = Convert.ToDecimal(row["DonGia"]);
+                    sheet.Cell(dong, 3).Style.NumberFormat.Format = "#,##0";
+                    sheet.Cell(dong, 4).Value = Convert.ToInt32(row["SoLuong"]);
+                    sheet.Cell(dong, 5).Value = Convert.ToDecimal(row["GiamGia"]);
+                    sheet.Cell(dong, 6).Value = Convert.ToDecimal(row["ThanhTien"]);
+                    sheet.Cell(dong, 6).Style.NumberFormat.Format = "#,##0";
+                    sheet.Range(dong, 1, dong, 6).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    tongTien += Convert.ToDecimal(row["ThanhTien"]);
                     dong++;
-                    sheet.Cells[dong, 5] = "TỔNG TIỀN:";
-                    sheet.Cells[dong, 6] = tongTien;
-
-                    Excel.Range oNhanTongTien = (Excel.Range)sheet.Cells[dong, 5];
-                    Excel.Range oGiaTriTongTien = (Excel.Range)sheet.Cells[dong, 6];
-
-                    oNhanTongTien.Font.Bold = true;
-                    oGiaTriTongTien.Font.Bold = true;
-                    oGiaTriTongTien.NumberFormat = "#,##0";
-
-                    // Can chinh do rong cac cot
-                    Excel.Range cacCot = sheet.Range["A:F"];
-                    cacCot.Columns.AutoFit();
-
-
-                    // Luu file
-                    workbook.SaveAs(sfd.FileName);
-
-                    MessageBox.Show(
-                        "Xuất hóa đơn Excel thành công!\n" + sfd.FileName,
-                        "Thông báo",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    excelApp.Visible = true;
                 }
-                catch (Exception ex)
+
+                // Tổng tiền
+                dong++;
+                sheet.Cell(dong, 5).Value = "TỔNG TIỀN:";
+                sheet.Cell(dong, 5).Style.Font.Bold = true;
+                sheet.Cell(dong, 6).Value = tongTien;
+                sheet.Cell(dong, 6).Style.Font.Bold = true;
+                sheet.Cell(dong, 6).Style.NumberFormat.Format = "#,##0";
+
+                sheet.Columns().AdjustToContents();
+                wb.SaveAs(sfd.FileName);
+
+                MessageBox.Show("Xuất hóa đơn Excel thành công!\n" + sfd.FileName,
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                 {
-                    MessageBox.Show(
-                        "Xuất Excel thất bại:\n" + ex.Message,
-                        "Lỗi",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    if (workbook != null)
-                        workbook.Close(false);
-
-                    if (excelApp != null)
-                        excelApp.Quit();
-
-                    if (sheet != null)
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(sheet);
-
-                    if (workbook != null)
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
-
-                    if (excelApp != null)
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
-                }
+                    FileName = sfd.FileName,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Xuất Excel thất bại:\n" + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1139,6 +1073,11 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
         private void label13_Click(object sender, EventArgs e)
         {
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
