@@ -71,15 +71,18 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             txtEmail.Text = r["Email"]?.ToString() ?? "";
         }
 
+
         private KhachHang TaoDoiTuongKhachHang()
         {
             return new KhachHang(
                 txtMaKH.Text.Trim(),
                 txtTenKH.Text.Trim(),
                 txtSDT.Text.Trim(),
-                txtDiaChi.Text.Trim()
+                txtDiaChi.Text.Trim(),
+                txtEmail.Text.Trim()
             );
         }
+
 
         private void btnThem_Click(object? sender, EventArgs e)
         {
@@ -121,30 +124,55 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             }
         }
 
+
         private void btnXoa_Click(object? sender, EventArgs e)
         {
-            if (!txtMaKH.ReadOnly)
+            if (!txtMaKH.ReadOnly || string.IsNullOrWhiteSpace(txtMaKH.Text))
             {
-                MessageBox.Show("Hãy chọn một khách hàng trong danh sách để xóa.");
+                MessageBox.Show(
+                    "Hãy chọn một khách hàng trong danh sách cần xóa!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
                 return;
             }
 
             string ma = txtMaKH.Text.Trim();
-            if (MessageBox.Show($"Bạn có chắc chắn muốn xóa khách hàng {ma}?", "Xác nhận",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
-            // Thuc hien qua tang BUS
+            DialogResult result = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa khách hàng {ma} không?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
             if (khachHangBus.Xoa(ma, out string error))
             {
-                MessageBox.Show("Đã xóa khách hàng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Xóa khách hàng thành công!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
                 LoadData();
                 LamLai();
             }
             else
             {
-                MessageBox.Show(error, "Lỗi xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    error,
+                    "Không thể xóa khách hàng",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
             }
         }
+
 
         private void btnLamLai_Click(object? sender, EventArgs e)
         {
@@ -165,11 +193,26 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             txtMaKH.Focus();
         }
 
+
         private void TimKiem()
         {
-            string tk = txtTim.Text.Trim().Replace("'", "''");
             if (dvKH == null) return;
-            dvKH.RowFilter = tk.Length == 0 ? "" : $"TenKH LIKE '%{tk}%' OR MaKH LIKE '%{tk}%' OR SDT LIKE '%{tk}%'";
+
+            string tk = txtTim.Text.Trim().Replace("'", "''");
+
+            if (tk.Length == 0)
+            {
+                dvKH.RowFilter = "";
+                return;
+            }
+
+            dvKH.RowFilter =
+                $"MaKH LIKE '%{tk}%' OR " +
+                $"TenKH LIKE '%{tk}%' OR " +
+                $"SDT LIKE '%{tk}%' OR " +
+                $"Email LIKE '%{tk}%' OR " +
+                $"DiaChi LIKE '%{tk}%'";
         }
+
     }
 }

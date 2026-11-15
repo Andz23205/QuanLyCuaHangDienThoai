@@ -25,6 +25,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             dgvNhanVien.CellClick += dgvNhanVien_CellClick;
         }
 
+
         private void Form2_Load(object? sender, EventArgs e)
         {
             dtpNgaySinh.Format = DateTimePickerFormat.Custom;
@@ -35,8 +36,12 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
             cboChucVu.DropDownStyle = ComboBoxStyle.DropDownList;
             cboChucVu.Items.Clear();
-            cboChucVu.Items.AddRange(new object[] { "Quản lý", "Nhân viên", "Bán hàng", "Thu ngân", "Kho" });
+            cboChucVu.Items.AddRange(new object[]
+            {
+        "Quản lý", "Nhân viên", "Bán hàng", "Thu ngân", "Kho"
+            });
 
+            // Cấu hình bảng nhân viên
             dgvNhanVien.ReadOnly = true;
             dgvNhanVien.AllowUserToAddRows = false;
             dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -44,15 +49,38 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             dgvNhanVien.RowHeadersVisible = false;
             dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Cấu hình trạng thái
+            cboTrangThai.Items.Clear();
+            cboTrangThai.Items.AddRange(new object[]
+            {
+        "Đang làm việc",
+        "Đã nghỉ việc"
+            });
+            cboTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboTrangThai.Enabled =
+    Form9.VaiTroDangNhap == "Quản lý" ||
+    Form9.VaiTroDangNhap == "Quan ly" ||
+    Form9.VaiTroDangNhap == "Admin";
+            cboTrangThai.SelectedIndex = 0;
+
+           
+            bool laQuanLy =
+    Form9.VaiTroDangNhap == "Quản lý" ||
+    Form9.VaiTroDangNhap == "Quan ly" ||
+    Form9.VaiTroDangNhap == "Admin";
+
+            btnXoa.Visible = laQuanLy;
+            btnXoa.Enabled = laQuanLy;
             LoadData();
             LamLai();
         }
+
 
         private void LoadData()
         {
             try
             {
-                // Goi qua tang BUS
+                // Lấy danh sách nhân viên từ BUS
                 dtNV = nhanVienBus.LayDanhSach();
                 dvNV = new DataView(dtNV);
                 dgvNhanVien.DataSource = dvNV;
@@ -65,7 +93,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     ["NgaySinh"] = "Ngày sinh",
                     ["SDT"] = "Số ĐT",
                     ["DiaChi"] = "Địa chỉ",
-                    ["ChucVu"] = "Chức vụ"
+                    ["ChucVu"] = "Chức vụ",
+                    ["TrangThai"] = "Trạng thái"
                 };
 
                 foreach (var kv in tieuDe)
@@ -74,9 +103,11 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                         dgvNhanVien.Columns[kv.Key]!.HeaderText = kv.Value;
                 }
 
+                // Định dạng ngày sinh
                 if (dgvNhanVien.Columns.Contains("NgaySinh"))
                     dgvNhanVien.Columns["NgaySinh"]!.DefaultCellStyle.Format = "dd/MM/yyyy";
 
+                // Ẩn các cột không cần hiển thị
                 if (dgvNhanVien.Columns.Contains("MatKhau"))
                     dgvNhanVien.Columns["MatKhau"]!.Visible = false;
 
@@ -89,6 +120,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             }
         }
 
+
         private void dgvNhanVien_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -98,10 +130,22 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             txtMaNV.ReadOnly = true;
             txtTenNV.Text = r["TenNV"].ToString();
 
-            if (r["NgaySinh"] is DateTime ns)
-                dtpNgaySinh.Value = ns <= dtpNgaySinh.MaxDate && ns >= dtpNgaySinh.MinDate ? ns : dtpNgaySinh.MaxDate;
+            if (r["NgaySinh"] != DBNull.Value && r["NgaySinh"] is DateTime ns)
+            {
+                dtpNgaySinh.Value =
+                    ns <= dtpNgaySinh.MaxDate && ns >= dtpNgaySinh.MinDate
+                    ? ns
+                    : dtpNgaySinh.MaxDate;
+            }
+            else
+            {
+                dtpNgaySinh.Value = DateTime.Today;
+            }
 
-            string gt = r["GioiTinh"]?.ToString() ?? "Nam";
+            string gt = r["GioiTinh"] == DBNull.Value
+                ? "Nam"
+                : r["GioiTinh"].ToString() ?? "Nam";
+
             radNu.Checked = gt.Equals("Nữ", StringComparison.OrdinalIgnoreCase);
             radNam.Checked = !radNu.Checked;
 
@@ -112,7 +156,16 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             cboChucVu.SelectedIndex = cboChucVu.FindStringExact(chucVu);
 
             txtMatKhau.Text = r["MatKhau"]?.ToString() ?? "";
+
+            // Hiển thị trạng thái nhân viên
+            string trangThai = r["TrangThai"] == DBNull.Value
+                ? "Đang làm việc"
+                : r["TrangThai"].ToString() ?? "Đang làm việc";
+
+            cboTrangThai.Text = trangThai;
         }
+
+
 
         private NhanVien TaoDoiTuongNhanVien()
         {
@@ -126,8 +179,12 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 txtMaNV.Text.Trim().ToLower(),
                 txtMatKhau.Text.Trim(),
                 cboChucVu.Text
-            );
+            )
+            {
+                TrangThai = cboTrangThai.Text
+            };
         }
+
 
         private void btnThem_Click(object? sender, EventArgs e)
         {
@@ -146,6 +203,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             }
         }
 
+
         private void btnSua_Click(object? sender, EventArgs e)
         {
             if (!txtMaNV.ReadOnly)
@@ -154,45 +212,94 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 return;
             }
 
+            bool laQuanLy =
+                Form9.VaiTroDangNhap == "Quản lý" ||
+                Form9.VaiTroDangNhap == "Quan ly" ||
+                Form9.VaiTroDangNhap == "Admin";
+
             NhanVien nv = TaoDoiTuongNhanVien();
 
-            // Thuc hien qua tang BUS
+            // Nếu không phải quản lý, giữ nguyên trạng thái cũ
+            if (!laQuanLy)
+            {
+                DataRowView? dongChon =
+                    dgvNhanVien.CurrentRow?.DataBoundItem as DataRowView;
+
+                if (dongChon != null)
+                    nv.TrangThai = dongChon["TrangThai"]?.ToString()
+                                   ?? "Đang làm việc";
+            }
+
             if (nhanVienBus.Sua(nv, out string error))
             {
-                MessageBox.Show("Cập nhật nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Cập nhật nhân viên thành công!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
                 LoadData();
                 LamLai();
             }
             else
             {
-                MessageBox.Show(error, "Lỗi sửa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    error,
+                    "Lỗi sửa",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
             }
         }
 
-        private void btnXoa_Click(object? sender, EventArgs e)
+
+        private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (!txtMaNV.ReadOnly)
+            if (!Form9.VaiTroDangNhap.Equals("Quản lý",
+                    StringComparison.OrdinalIgnoreCase) &&
+                !Form9.VaiTroDangNhap.Equals("Quan ly",
+                    StringComparison.OrdinalIgnoreCase) &&
+                !Form9.VaiTroDangNhap.Equals("Admin",
+                    StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("Hãy chọn một nhân viên trong danh sách để xóa.");
+                MessageBox.Show("Chỉ quản lý mới có quyền xóa nhân viên!");
                 return;
             }
 
-            string ma = txtMaNV.Text.Trim();
-            if (MessageBox.Show($"Bạn có chắc chắn muốn xóa nhân viên {ma}?", "Xác nhận",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-
-            // Thuc hien qua tang BUS
-            if (nhanVienBus.Xoa(ma, out string error))
+            if (string.IsNullOrWhiteSpace(txtMaNV.Text))
             {
-                MessageBox.Show("Đã xóa nhân viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng chọn nhân viên cần xóa!");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn xóa nhân viên này không?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            if (nhanVienBus.Xoa(txtMaNV.Text.Trim(), out string error))
+            {
+                MessageBox.Show("Xóa nhân viên thành công!");
                 LoadData();
                 LamLai();
             }
             else
             {
-                MessageBox.Show(error, "Lỗi xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    error,
+                    "Không thể xóa",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
             }
         }
+
 
         private void btnLamLai_Click(object? sender, EventArgs e)
         {

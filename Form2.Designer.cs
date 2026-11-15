@@ -53,11 +53,13 @@
             label9 = new Label();
             txtDiaChi = new TextBox();
             groupBox1 = new GroupBox();
-            this.radNu = new RadioButton();
-            this.radNam = new RadioButton();
-            txtSDT = new TextBox();
-            dtpNgaySinh = new DateTimePicker();
+            cboTrangThai = new ComboBox();
+            label11 = new Label();
             cboChucVu = new ComboBox();
+            dtpNgaySinh = new DateTimePicker();
+            radNu = new RadioButton();
+            radNam = new RadioButton();
+            txtSDT = new TextBox();
             dgvNhanVien = new DataGridView();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -283,10 +285,12 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(cboTrangThai);
+            groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(cboChucVu);
             groupBox1.Controls.Add(dtpNgaySinh);
-            groupBox1.Controls.Add(this.radNu);
-            groupBox1.Controls.Add(this.radNam);
+            groupBox1.Controls.Add(radNu);
+            groupBox1.Controls.Add(radNam);
             groupBox1.Controls.Add(txtSDT);
             groupBox1.Controls.Add(txtTenNV);
             groupBox1.Controls.Add(txtMatKhau);
@@ -307,34 +311,30 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Thong tin nhan vien";
             // 
-            // radNu
+            // cboTrangThai
             // 
-            this.radNu.AutoSize = true;
-            this.radNu.Location = new Point(910, 118);
-            this.radNu.Name = "radNu";
-            this.radNu.Size = new Size(77, 36);
-            this.radNu.TabIndex = 15;
-            this.radNu.TabStop = true;
-            this.radNu.Text = "Nu";
-            this.radNu.UseVisualStyleBackColor = true;
+            cboTrangThai.FormattingEnabled = true;
+            cboTrangThai.Location = new Point(757, 326);
+            cboTrangThai.Name = "cboTrangThai";
+            cboTrangThai.Size = new Size(256, 40);
+            cboTrangThai.TabIndex = 19;
             // 
-            // radNam
+            // label11
             // 
-            this.radNam.AutoSize = true;
-            this.radNam.Location = new Point(757, 118);
-            this.radNam.Name = "radNam";
-            this.radNam.Size = new Size(103, 36);
-            this.radNam.TabIndex = 14;
-            this.radNam.TabStop = true;
-            this.radNam.Text = "Nam ";
-            this.radNam.UseVisualStyleBackColor = true;
+            label11.AutoSize = true;
+            label11.Location = new Point(616, 334);
+            label11.Name = "label11";
+            label11.Size = new Size(125, 32);
+            label11.TabIndex = 18;
+            label11.Text = "Trang Thai";
             // 
-            // txtSDT
+            // cboChucVu
             // 
-            txtSDT.Location = new Point(176, 189);
-            txtSDT.Name = "txtSDT";
-            txtSDT.Size = new Size(256, 39);
-            txtSDT.TabIndex = 13;
+            cboChucVu.FormattingEnabled = true;
+            cboChucVu.Location = new Point(757, 188);
+            cboChucVu.Name = "cboChucVu";
+            cboChucVu.Size = new Size(256, 40);
+            cboChucVu.TabIndex = 17;
             // 
             // dtpNgaySinh
             // 
@@ -343,13 +343,34 @@
             dtpNgaySinh.Size = new Size(256, 39);
             dtpNgaySinh.TabIndex = 16;
             // 
-            // cboChucVu
+            // radNu
             // 
-            cboChucVu.FormattingEnabled = true;
-            cboChucVu.Location = new Point(757, 188);
-            cboChucVu.Name = "cboChucVu";
-            cboChucVu.Size = new Size(262, 40);
-            cboChucVu.TabIndex = 17;
+            radNu.AutoSize = true;
+            radNu.Location = new Point(910, 118);
+            radNu.Name = "radNu";
+            radNu.Size = new Size(77, 36);
+            radNu.TabIndex = 15;
+            radNu.TabStop = true;
+            radNu.Text = "Nu";
+            radNu.UseVisualStyleBackColor = true;
+            // 
+            // radNam
+            // 
+            radNam.AutoSize = true;
+            radNam.Location = new Point(757, 118);
+            radNam.Name = "radNam";
+            radNam.Size = new Size(103, 36);
+            radNam.TabIndex = 14;
+            radNam.TabStop = true;
+            radNam.Text = "Nam ";
+            radNam.UseVisualStyleBackColor = true;
+            // 
+            // txtSDT
+            // 
+            txtSDT.Location = new Point(176, 189);
+            txtSDT.Name = "txtSDT";
+            txtSDT.Size = new Size(256, 39);
+            txtSDT.TabIndex = 13;
             // 
             // dgvNhanVien
             // 
@@ -419,5 +440,7 @@
         private DateTimePicker dtpNgaySinh;
         private ComboBox cboChucVu;
         private DataGridView dgvNhanVien;
+        private ComboBox cboTrangThai;
+        private Label label11;
     }
 }

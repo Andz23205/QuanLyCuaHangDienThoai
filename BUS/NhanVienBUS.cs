@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 {
@@ -34,6 +35,32 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
             error = "Tên đăng nhập hoặc mật khẩu không chính xác!";
             return false;
+        }
+
+        public bool CapNhatTrangThai(string maNV, string trangThai)
+        {
+            if (string.IsNullOrWhiteSpace(maNV))
+                return false;
+
+            if (trangThai != "Đang làm việc" &&
+                trangThai != "Đã nghỉ việc")
+                return false;
+
+            try
+            {
+                return dal.CapNhatTrangThai(maNV, trangThai) > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Lỗi cập nhật trạng thái: " + ex.Message,
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
         }
 
         public DataTable LayDanhSach()

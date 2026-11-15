@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 {
@@ -79,10 +80,11 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 txtMaNCC.Text.Trim(),
                 txtTenNCC.Text.Trim(),
                 txtSDT.Text.Trim(),
-                txtDiaChi.Text.Trim()
+                txtDiaChi.Text.Trim(),
+                txtEmail.Text.Trim(),
+                txtNguoiLH.Text.Trim()
             );
         }
-
         private void btnThem_Click(object? sender, EventArgs e)
         {
             NhaCungCap ncc = TaoDoiTuongNhaCungCap();
@@ -100,53 +102,100 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             }
         }
 
+
         private void btnSua_Click(object? sender, EventArgs e)
         {
-            if (!txtMaNCC.ReadOnly)
+            if (!txtMaNCC.ReadOnly || string.IsNullOrWhiteSpace(txtMaNCC.Text))
             {
-                MessageBox.Show("Hãy chọn một nhà cung cấp trong danh sách để sửa.");
+                MessageBox.Show(
+                    "Vui lòng chọn nhà cung cấp cần sửa trong danh sách!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
             NhaCungCap ncc = TaoDoiTuongNhaCungCap();
 
-            // Thuc hien qua tang BUS
+            if (MessageBox.Show(
+                $"Bạn có chắc chắn muốn cập nhật thông tin nhà cung cấp {ncc.MaNCC} không?",
+                "Xác nhận sửa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) != DialogResult.Yes)
+            {
+                return;
+            }
+
             if (nhaCungCapBus.Sua(ncc, out string error))
             {
-                MessageBox.Show("Cập nhật nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Cập nhật nhà cung cấp thành công!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
                 LoadData();
                 LamLai();
             }
             else
             {
-                MessageBox.Show(error, "Lỗi sửa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    error,
+                    "Lỗi cập nhật",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
 
+
+
         private void btnXoa_Click(object? sender, EventArgs e)
         {
-            if (!txtMaNCC.ReadOnly)
+            if (!txtMaNCC.ReadOnly || string.IsNullOrWhiteSpace(txtMaNCC.Text))
             {
-                MessageBox.Show("Hãy chọn một nhà cung cấp trong danh sách để xóa.");
+                MessageBox.Show(
+                    "Vui lòng chọn nhà cung cấp cần xóa trong danh sách!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
             string ma = txtMaNCC.Text.Trim();
-            if (MessageBox.Show($"Bạn có chắc chắn muốn xóa nhà cung cấp {ma}?", "Xác nhận",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            string ten = txtTenNCC.Text.Trim();
 
-            // Thuc hien qua tang BUS
+            DialogResult xacNhan = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa nhà cung cấp:\n\n" +
+                $"Mã NCC: {ma}\n" +
+                $"Tên NCC: {ten}?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (xacNhan != DialogResult.Yes)
+                return;
+
             if (nhaCungCapBus.Xoa(ma, out string error))
             {
-                MessageBox.Show("Đã xóa nhà cung cấp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Xóa nhà cung cấp thành công!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
                 LoadData();
                 LamLai();
             }
             else
             {
-                MessageBox.Show(error, "Lỗi xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    error,
+                    "Không thể xóa",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
+
 
         private void btnLamLai_Click(object? sender, EventArgs e)
         {

@@ -173,7 +173,7 @@ INSERT INTO tblKhachHang VALUES
 ('KH003','Lê Thị Oanh','0933333333','25 Khánh Hội, Q4, TP.HCM'),
 ('KH004','Phạm Văn Phúc','0944444444','35 Tôn Đức Thắng, Q1, TP.HCM'),
 ('KH005','Hoàng Thị Quỳnh','0955555555','45 Hai Bà Trưng, Q1, TP.HCM'),
-('KH006','Đặng Văn Rồng','0966666666','55 Đinh Tiên Hoàng, Q1, TP.HCM'),
+('KH006','Đặng Văn Long','0966666666','55 Đinh Tiên Hoàng, Q1, TP.HCM'),
 ('KH007','Bùi Thị Sen','0977777777','65 Trần Quang Khải, Q1, TP.HCM'),
 ('KH008','Ngô Văn Tùng','0988888888','75 Lê Thánh Tôn, Q1, TP.HCM'),
 ('KH009','Vũ Thị Uyên','0999999999','85 Ngô Đức Kế, Q1, TP.HCM'),
@@ -352,11 +352,168 @@ CREATE PROCEDURE sp_KiemTraDangNhap
     @MatKhau  NVARCHAR(100)
 AS
 BEGIN
-    SELECT MaNV, TenNV, ChucVu, TaiKhoan
-    FROM tblNhanVien
-    WHERE TaiKhoan = @TaiKhoan AND MatKhau = @MatKhau;
+    SET NOCOUNT ON;
+
+    -- C# NhanVienBUS doc cot r["VaiTro"], trong bang hien tai cot that la ChucVu.
+    -- Alias ChucVu thanh VaiTro de dong bo ten cot tra ve voi DTO/BUS.
+    SELECT
+        MaNV,
+        TenNV,
+        ChucVu AS VaiTro,
+        TaiKhoan
+    FROM dbo.tblNhanVien
+    WHERE TaiKhoan = @TaiKhoan
+      AND MatKhau = @MatKhau;
 END
 GO
 
 PRINT N'Tao database QLCuaHangBanDienThoai thanh cong!';
 GO
+
+
+
+/* =====================================================
+   1. BỔ SUNG CỘT CHO tblNhanVien
+   ===================================================== */
+
+IF COL_LENGTH('dbo.tblNhanVien', 'GioiTinh') IS NULL
+    ALTER TABLE tblNhanVien ADD GioiTinh NVARCHAR(10) NULL;
+GO
+
+IF COL_LENGTH('dbo.tblNhanVien', 'NgaySinh') IS NULL
+    ALTER TABLE tblNhanVien ADD NgaySinh DATE NULL;
+GO
+
+IF COL_LENGTH('dbo.tblNhanVien', 'TrangThai') IS NULL
+    ALTER TABLE tblNhanVien
+    ADD TrangThai NVARCHAR(50) NULL
+        CONSTRAINT DF_tblNhanVien_TrangThai
+        DEFAULT N'Đang làm việc' WITH VALUES;
+GO
+
+/* Dữ liệu cũ chưa có trạng thái thì mặc định là đang làm việc */
+UPDATE tblNhanVien
+SET TrangThai = N'Đang làm việc'
+WHERE TrangThai IS NULL;
+GO
+
+/* =====================================================
+   2. BỔ SUNG EMAIL CHO tblKhachHang
+   ===================================================== */
+
+IF COL_LENGTH('dbo.tblKhachHang', 'Email') IS NULL
+    ALTER TABLE tblKhachHang ADD Email NVARCHAR(150) NULL;
+GO
+
+/* =====================================================
+   3. BỔ SUNG EMAIL VÀ NGƯỜI LIÊN HỆ CHO tblNhaCungCap
+   ===================================================== */
+
+IF COL_LENGTH('dbo.tblNhaCungCap', 'Email') IS NULL
+    ALTER TABLE tblNhaCungCap ADD Email NVARCHAR(255) NULL;
+GO
+
+IF COL_LENGTH('dbo.tblNhaCungCap', 'NguoiLH') IS NULL
+    ALTER TABLE tblNhaCungCap ADD NguoiLH NVARCHAR(100) NULL;
+GO
+
+UPDATE tblNhaCungCap
+SET Email = N'applevn@gmail.com',
+    NguoiLH = N'Nguyễn Văn An'
+WHERE MaNCC = 'NCC001';
+
+UPDATE tblNhaCungCap
+SET Email = N'samsungvn@gmail.com',
+    NguoiLH = N'Trần Minh Tuấn'
+WHERE MaNCC = 'NCC002';
+
+UPDATE tblNhaCungCap
+SET Email = N'xiaomivn@gmail.com',
+    NguoiLH = N'Lê Hoàng Nam'
+WHERE MaNCC = 'NCC003';
+
+UPDATE tblNhaCungCap
+SET Email = N'oppovn@gmail.com',
+    NguoiLH = N'Phạm Quốc Bảo'
+WHERE MaNCC = 'NCC004';
+
+UPDATE tblNhaCungCap
+SET Email = N'vivovn@gmail.com',
+    NguoiLH = N'Vũ Thanh Hùng'
+WHERE MaNCC = 'NCC005';
+GO
+
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nam', NgaySinh = '2002-01-15'
+WHERE MaNV = 'NV001';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nữ', NgaySinh = '2002-04-20'
+WHERE MaNV = 'NV002';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nam', NgaySinh = '2001-08-12'
+WHERE MaNV = 'NV003';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nữ', NgaySinh = '2003-02-25'
+WHERE MaNV = 'NV004';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nam', NgaySinh = '2002-06-18'
+WHERE MaNV = 'NV005';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nữ', NgaySinh = '2001-11-09'
+WHERE MaNV = 'NV006';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nam', NgaySinh = '2003-07-22'
+WHERE MaNV = 'NV007';
+
+UPDATE dbo.tblNhanVien
+SET GioiTinh = N'Nữ', NgaySinh = '2002-09-30'
+WHERE MaNV = 'NV008';
+GO
+
+UPDATE dbo.tblKhachHang SET Email = 'mai.nguyen@example.com'
+WHERE MaKH = 'KH001';
+
+UPDATE dbo.tblKhachHang SET Email = 'nam.tran@example.com'
+WHERE MaKH = 'KH002';
+
+UPDATE dbo.tblKhachHang SET Email = 'oanh.le@example.com'
+WHERE MaKH = 'KH003';
+
+UPDATE dbo.tblKhachHang SET Email = 'phuc.pham@example.com'
+WHERE MaKH = 'KH004';
+
+UPDATE dbo.tblKhachHang SET Email = 'quynh.hoang@example.com'
+WHERE MaKH = 'KH005';
+
+UPDATE dbo.tblKhachHang SET Email = 'long.dang@example.com'
+WHERE MaKH = 'KH006';
+
+UPDATE dbo.tblKhachHang SET Email = 'sen.bui@example.com'
+WHERE MaKH = 'KH007';
+
+UPDATE dbo.tblKhachHang SET Email = 'tung.ngo@example.com'
+WHERE MaKH = 'KH008';
+
+UPDATE dbo.tblKhachHang SET Email = 'uyen.vu@example.com'
+WHERE MaKH = 'KH009';
+
+UPDATE dbo.tblKhachHang SET Email = 'viet.duong@example.com'
+WHERE MaKH = 'KH010';
+GO
+
+
+SELECT
+    MaNCC,
+    TenNCC,
+    SDT,
+    DiaChi,
+    Email,
+    NguoiLH
+FROM dbo.tblNhaCungCap;

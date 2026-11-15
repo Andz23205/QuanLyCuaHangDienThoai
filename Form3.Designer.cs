@@ -364,7 +364,7 @@
             label6.Name = "label6";
             label6.Size = new Size(39, 20);
             label6.TabIndex = 0;
-            label6.Text = "SĐT:";
+            label6.Text = "Từ khóa:";
             // 
             // Form3
             // 

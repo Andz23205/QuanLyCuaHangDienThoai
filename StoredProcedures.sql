@@ -6,15 +6,30 @@ CREATE OR ALTER PROCEDURE sp_LayDanhSachHang
 AS
 BEGIN
     SET NOCOUNT ON;
-    SELECT h.MaHang, h.TenHang, sx.TenHangSX AS Hang, l.TenLoai AS Loai, 
-           m.TenMau AS Mau, dl.TenDungLuong AS DungLuong,
-           h.DonGiaNhap AS GiaNhap, h.DonGiaBan AS GiaBan, h.SoLuongTon AS SoLuong,
-           h.MaHangSX, h.MaLoai, h.MaMau, h.MaDungLuong
-    FROM tblHang h
-    LEFT JOIN tblHangSX sx ON h.MaHangSX = sx.MaHangSX
-    LEFT JOIN tblLoai l ON h.MaLoai = l.MaLoai
-    LEFT JOIN tblMau m ON h.MaMau = m.MaMau
-    LEFT JOIN tblDungLuong dl ON h.MaDungLuong = dl.MaDungLuong
+
+    SELECT
+        h.MaHang,
+        h.TenHang,
+        ISNULL(hsx.TenHangSX, N'') AS Hang,
+        ISNULL(l.TenLoai, N'') AS Loai,
+        ISNULL(m.TenMau, N'') AS Mau,
+        ISNULL(dl.TenDungLuong, N'') AS DungLuong,
+        h.DonGiaNhap AS GiaNhap,
+        h.DonGiaBan AS GiaBan,
+        h.SoLuongTon AS SoLuong,
+        h.MaHangSX,
+        h.MaLoai,
+        h.MaMau,
+        h.MaDungLuong
+    FROM dbo.tblHang AS h
+    LEFT JOIN dbo.tblHangSX AS hsx
+        ON h.MaHangSX = hsx.MaHangSX
+    LEFT JOIN dbo.tblLoai AS l
+        ON h.MaLoai = l.MaLoai
+    LEFT JOIN dbo.tblMau AS m
+        ON h.MaMau = m.MaMau
+    LEFT JOIN dbo.tblDungLuong AS dl
+        ON h.MaDungLuong = dl.MaDungLuong
     ORDER BY h.MaHang;
 END;
 GO
@@ -76,15 +91,22 @@ END;
 GO
 
 -- 5. Thu tuc kiem tra dang nhap
+
 CREATE OR ALTER PROCEDURE sp_KiemTraDangNhap
     @TaiKhoan NVARCHAR(50),
-    @MatKhau NVARCHAR(255)
+    @MatKhau NVARCHAR(100)
 AS
 BEGIN
     SET NOCOUNT ON;
-    SELECT MaNV, TenNV, VaiTro 
-    FROM tblNhanVien 
-    WHERE (TenDangNhap = @TaiKhoan OR MaNV = @TaiKhoan) AND MatKhau = @MatKhau;
+
+    SELECT
+        MaNV,
+        TenNV,
+        ChucVu AS VaiTro,
+        TaiKhoan
+    FROM dbo.tblNhanVien
+    WHERE TaiKhoan = @TaiKhoan
+      AND MatKhau = @MatKhau;
 END;
 GO
 
@@ -116,3 +138,5 @@ BEGIN
     ORDER BY h.MaHang;
 END;
 GO
+
+

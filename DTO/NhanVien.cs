@@ -8,6 +8,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
         public string TenDangNhap { get; set; } = "";
         public string MatKhau { get; set; } = "";
         public string VaiTro { get; set; } = "Nhân viên";
+        public string TrangThai { get; set; } = "Đang làm việc";
 
         public NhanVien() { }
 
