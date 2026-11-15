@@ -939,6 +939,41 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
 
 
+
+        private decimal ChonBuocTruc(decimal doanhThuMax)
+        {
+            decimal giaTriMucTieu = doanhThuMax / 5m;
+            decimal bac = 1m;
+
+            while (giaTriMucTieu / bac >= 10m)
+                bac *= 10m;
+
+            while (giaTriMucTieu / bac < 1m)
+                bac /= 10m;
+
+            decimal heSo = giaTriMucTieu / bac;
+
+            if (heSo <= 1m)
+                return bac;
+            if (heSo <= 2m)
+                return 2m * bac;
+            if (heSo <= 5m)
+                return 5m * bac;
+
+            return 10m * bac;
+        }
+
+        private string DinhDangTien(decimal soTien)
+        {
+            if (soTien >= 1_000_000_000m)
+                return (soTien / 1_000_000_000m).ToString("0.##") + " tỷ";
+
+            if (soTien >= 1_000_000m)
+                return (soTien / 1_000_000m).ToString("0.##") + " tr";
+
+            return soTien.ToString("N0");
+        }
+
         private void VeBieuDoDoanhThu(
             Graphics g,
             Size kichThuoc,
@@ -954,20 +989,18 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 using (Font f = new Font("Segoe UI", 11F))
                 using (Brush b = new SolidBrush(mauPhu))
                 {
-                    g.DrawString(
-                        "Chưa có dữ liệu doanh thu",
-                        f, b, 30, 30);
+                    g.DrawString("Chưa có dữ liệu doanh thu", f, b, 30, 30);
                 }
                 return;
             }
 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            if (!dt.Columns.Contains("DoanhThu") ||
+                !dt.Columns.Contains("Ngay"))
+                return;
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint =
                 System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-
-            // =========================
-            // 1. THIẾT LẬP VÙNG BIỂU ĐỒ
-            // =========================
 
             float leTrai = 95;
             float lePhai = 25;
@@ -985,55 +1018,49 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             if (chieuRong <= 0 || chieuCao <= 0)
                 return;
 
-            // =========================
-            // 2. TÌM DOANH THU CAO NHẤT
-            // =========================
-
             decimal doanhThuMax = 0;
 
             foreach (DataRow row in dt.Rows)
             {
-                decimal doanhThu =
-                    Convert.ToDecimal(row["DoanhThu"]);
+                if (row["DoanhThu"] == DBNull.Value)
+                    continue;
+
+                decimal doanhThu = Convert.ToDecimal(row["DoanhThu"]);
 
                 if (doanhThu > doanhThuMax)
                     doanhThuMax = doanhThu;
             }
 
             if (doanhThuMax <= 0)
-                doanhThuMax = 1;
+                doanhThuMax = 1m;
 
-            // Chia trục tung thành các khoảng hợp lý
-            decimal buocTruc = doanhThuMax >= 5000000m
-                ? 1000000m
-                : doanhThuMax >= 1000000m
-                    ? 500000m
-                    : Math.Max(1m, Math.Ceiling(doanhThuMax / 5m));
+            // Tự động chọn bước trục, tránh vẽ hàng nghìn đường lưới
+            decimal buocTruc = ChonBuocTruc(doanhThuMax);
 
             decimal giaTriTrucMax =
                 Math.Ceiling(doanhThuMax / buocTruc) * buocTruc;
 
-            // =========================
-            // 3. KHAI BÁO FONT VÀ MÀU
-            // =========================
+            if (giaTriTrucMax <= 0)
+                giaTriTrucMax = buocTruc;
 
-            using (Font fontTruc = new Font("Segoe UI", 9.5F))
-            using (Font fontTien = new Font("Segoe UI", 9.5F, FontStyle.Bold))
-            using (Font fontNgay = new Font("Segoe UI", 9.5F))
+            using (Font fontTruc = new Font("Segoe UI", 9F))
+            using (Font fontTien = new Font("Segoe UI", 9F, FontStyle.Bold))
+            using (Font fontNgay = new Font("Segoe UI", 9F))
             using (Brush brushChu = new SolidBrush(mauChu))
             using (Brush brushPhu = new SolidBrush(mauPhu))
             using (Brush brushCot = new SolidBrush(mauBlue))
             using (Pen penLuoi = new Pen(Color.FromArgb(225, 231, 239), 1))
             using (Pen penTruc = new Pen(Color.FromArgb(190, 200, 215), 1))
             using (StringFormat canGiua = new StringFormat())
+            using (StringFormat canPhai = new StringFormat())
             {
                 canGiua.Alignment = StringAlignment.Center;
                 canGiua.LineAlignment = StringAlignment.Center;
 
-                // =========================
-                // 4. VẼ TRỤC TUNG VÀ ĐƯỜNG LƯỚI
-                // =========================
+                canPhai.Alignment = StringAlignment.Far;
+                canPhai.LineAlignment = StringAlignment.Center;
 
+                // Vẽ trục tung và đường lưới
                 int soKhoang = (int)(giaTriTrucMax / buocTruc);
 
                 for (int i = 0; i <= soKhoang; i++)
@@ -1043,76 +1070,45 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     float y = yDuoi -
                         (float)(giaTri / giaTriTrucMax) * chieuCao;
 
-                    // Đường kẻ ngang
-                    g.DrawLine(
-                        penLuoi,
-                        xTrai,
-                        y,
-                        xPhai,
-                        y
-                    );
+                    g.DrawLine(penLuoi, xTrai, y, xPhai, y);
 
-                    // Số tiền bên trái
                     g.DrawString(
-                        giaTri.ToString("N0"),
+                        DinhDangTien(giaTri),
                         fontTruc,
                         brushPhu,
-                        new RectangleF(
-                            0,
-                            y - 11,
-                            leTrai - 12,
-                            22
-                        ),
-                        new StringFormat
-                        {
-                            Alignment = StringAlignment.Far,
-                            LineAlignment = StringAlignment.Center
-                        }
+                        new RectangleF(0, y - 11, leTrai - 12, 22),
+                        canPhai
                     );
                 }
 
-                // Đường trục đứng
                 g.DrawLine(penTruc, xTrai, yTren, xTrai, yDuoi);
-
-                // Đường trục ngang
                 g.DrawLine(penTruc, xTrai, yDuoi, xPhai, yDuoi);
 
-                // =========================
-                // 5. VẼ CÁC CỘT DOANH THU
-                // =========================
-
+                // Vẽ cột doanh thu
                 int soNgay = dt.Rows.Count;
-
                 float khoangCot = chieuRong / soNgay;
 
-                float rongCot = Math.Min(
-                    48,
-                    khoangCot * 0.55F
-                );
+                float rongCot = Math.Min(48F, khoangCot * 0.55F);
 
                 for (int i = 0; i < soNgay; i++)
                 {
                     DataRow row = dt.Rows[i];
 
-                    decimal doanhThu =
-                        Convert.ToDecimal(row["DoanhThu"]);
+                    if (row["DoanhThu"] == DBNull.Value ||
+                        row["Ngay"] == DBNull.Value)
+                        continue;
 
-                    DateTime ngay =
-                        Convert.ToDateTime(row["Ngay"]);
+                    decimal doanhThu = Convert.ToDecimal(row["DoanhThu"]);
+                    DateTime ngay = Convert.ToDateTime(row["Ngay"]);
 
-                    // Tính chiều cao cột
                     float caoCot =
-                        (float)(doanhThu / giaTriTrucMax)
-                        * chieuCao;
+                        (float)(doanhThu / giaTriTrucMax) * chieuCao;
 
-                    // Tọa độ cột
-                    float x = xTrai
-                        + i * khoangCot
+                    float x = xTrai + i * khoangCot
                         + (khoangCot - rongCot) / 2;
 
                     float y = yDuoi - caoCot;
 
-                    // Vẽ cột
                     if (doanhThu > 0)
                     {
                         g.FillRectangle(
@@ -1124,11 +1120,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                         );
                     }
 
-                    // =========================
-                    // 6. HIỂN THỊ SỐ TIỀN
-                    // =========================
-
-                    string tien = doanhThu.ToString("N0");
+                    // Hiển thị doanh thu rút gọn
+                    string tien = DinhDangTien(doanhThu);
 
                     g.DrawString(
                         tien,
@@ -1143,14 +1136,9 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                         canGiua
                     );
 
-                    // =========================
-                    // 7. HIỂN THỊ NGÀY THÁNG
-                    // =========================
-
-                    string ngayThang = ngay.ToString("dd/MM");
-
+                    // Hiển thị ngày
                     g.DrawString(
-                        ngayThang,
+                        ngay.ToString("dd/MM"),
                         fontNgay,
                         brushPhu,
                         new RectangleF(
@@ -1164,6 +1152,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 }
             }
         }
+
 
 
 

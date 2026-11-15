@@ -1,360 +1,23 @@
-﻿namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
+﻿
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 {
     partial class Form6
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            groupBox1 = new GroupBox();
-            cboLoai = new ComboBox();
-            cboHang = new ComboBox();
-            cboMau = new ComboBox();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            txtGiaDen = new TextBox();
-            txtGiaTu = new TextBox();
-            txtTenHang = new TextBox();
-            label2 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label7 = new Label();
-            label3 = new Label();
-            label1 = new Label();
-            groupBox2 = new GroupBox();
-            dgvKetQua = new DataGridView();
-            ColMaHang = new DataGridViewTextBoxColumn();
-            colTenHang = new DataGridViewTextBoxColumn();
-            colHang = new DataGridViewTextBoxColumn();
-            colLoai = new DataGridViewTextBoxColumn();
-            colMau = new DataGridViewTextBoxColumn();
-            colDungLuong = new DataGridViewTextBoxColumn();
-            colGiaBan = new DataGridViewTextBoxColumn();
-            colSL = new DataGridViewTextBoxColumn();
-            label6 = new Label();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvKetQua).BeginInit();
-            SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(cboLoai);
-            groupBox1.Controls.Add(cboHang);
-            groupBox1.Controls.Add(cboMau);
-            groupBox1.Controls.Add(button4);
-            groupBox1.Controls.Add(button3);
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(button1);
-            groupBox1.Controls.Add(txtGiaDen);
-            groupBox1.Controls.Add(txtGiaTu);
-            groupBox1.Controls.Add(txtTenHang);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(20, 19);
-            groupBox1.Margin = new Padding(5, 5, 5, 5);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(5, 5, 5, 5);
-            groupBox1.Size = new Size(1872, 323);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Tiêu chí tìm kiếm ";
-            // 
-            // cboLoai
-            // 
-            cboLoai.FormattingEnabled = true;
-            cboLoai.Location = new Point(1352, 70);
-            cboLoai.Margin = new Padding(5, 5, 5, 5);
-            cboLoai.Name = "cboLoai";
-            cboLoai.Size = new Size(366, 40);
-            cboLoai.TabIndex = 3;
-            // 
-            // cboHang
-            // 
-            cboHang.FormattingEnabled = true;
-            cboHang.Location = new Point(728, 64);
-            cboHang.Margin = new Padding(5, 5, 5, 5);
-            cboHang.Name = "cboHang";
-            cboHang.Size = new Size(374, 40);
-            cboHang.TabIndex = 3;
-            // 
-            // cboMau
-            // 
-            cboMau.FormattingEnabled = true;
-            cboMau.Location = new Point(179, 138);
-            cboMau.Margin = new Padding(5, 5, 5, 5);
-            cboMau.Name = "cboMau";
-            cboMau.Size = new Size(353, 40);
-            cboMau.TabIndex = 3;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(837, 205);
-            button4.Margin = new Padding(5, 5, 5, 5);
-            button4.Name = "button4";
-            button4.Size = new Size(153, 46);
-            button4.TabIndex = 2;
-            button4.Text = "button1";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(634, 205);
-            button3.Margin = new Padding(5, 5, 5, 5);
-            button3.Name = "button3";
-            button3.Size = new Size(153, 46);
-            button3.TabIndex = 2;
-            button3.Text = "button1";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(382, 205);
-            button2.Margin = new Padding(5, 5, 5, 5);
-            button2.Name = "button2";
-            button2.Size = new Size(153, 46);
-            button2.TabIndex = 2;
-            button2.Text = "button1";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(83, 205);
-            button1.Margin = new Padding(5, 5, 5, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(153, 46);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // txtGiaDen
-            // 
-            txtGiaDen.Location = new Point(1352, 144);
-            txtGiaDen.Margin = new Padding(5, 5, 5, 5);
-            txtGiaDen.Name = "txtGiaDen";
-            txtGiaDen.Size = new Size(366, 39);
-            txtGiaDen.TabIndex = 1;
-            // 
-            // txtGiaTu
-            // 
-            txtGiaTu.Location = new Point(728, 138);
-            txtGiaTu.Margin = new Padding(5, 5, 5, 5);
-            txtGiaTu.Name = "txtGiaTu";
-            txtGiaTu.Size = new Size(374, 39);
-            txtGiaTu.TabIndex = 1;
-            // 
-            // txtTenHang
-            // 
-            txtTenHang.Location = new Point(179, 59);
-            txtTenHang.Margin = new Padding(5, 5, 5, 5);
-            txtTenHang.Name = "txtTenHang";
-            txtTenHang.Size = new Size(353, 39);
-            txtTenHang.TabIndex = 1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(34, 144);
-            label2.Margin = new Padding(5, 0, 5, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(102, 32);
-            label2.TabIndex = 0;
-            label2.Text = "Màu sắc";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(1185, 69);
-            label5.Margin = new Padding(5, 0, 5, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(57, 32);
-            label5.TabIndex = 0;
-            label5.Text = "Loại";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(1185, 155);
-            label4.Margin = new Padding(5, 0, 5, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(96, 32);
-            label4.TabIndex = 0;
-            label4.Text = "Giá đến";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(598, 149);
-            label7.Margin = new Padding(5, 0, 5, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(77, 32);
-            label7.TabIndex = 0;
-            label7.Text = "Giá từ";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(598, 70);
-            label3.Margin = new Padding(5, 0, 5, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(105, 32);
-            label3.TabIndex = 0;
-            label3.Text = "Hãng SX";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(34, 59);
-            label1.Margin = new Padding(5, 0, 5, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(120, 32);
-            label1.TabIndex = 0;
-            label1.Text = "Tên hàng ";
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(dgvKetQua);
-            groupBox2.Controls.Add(label6);
-            groupBox2.Location = new Point(20, 336);
-            groupBox2.Margin = new Padding(5, 5, 5, 5);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(5, 5, 5, 5);
-            groupBox2.Size = new Size(1776, 800);
-            groupBox2.TabIndex = 1;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Kết quả tìm kiếm";
-            // 
-            // dgvKetQua
-            // 
-            dgvKetQua.AllowUserToAddRows = false;
-            dgvKetQua.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvKetQua.BackgroundColor = Color.White;
-            dgvKetQua.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKetQua.Columns.AddRange(new DataGridViewColumn[] { ColMaHang, colTenHang, colHang, colLoai, colMau, colDungLuong, colGiaBan, colSL });
-            dgvKetQua.Location = new Point(13, 107);
-            dgvKetQua.Margin = new Padding(5, 5, 5, 5);
-            dgvKetQua.Name = "dgvKetQua";
-            dgvKetQua.RowHeadersWidth = 51;
-            dgvKetQua.Size = new Size(1859, 683);
-            dgvKetQua.TabIndex = 1;
-            // 
-            // ColMaHang
-            // 
-            ColMaHang.HeaderText = "Mã hàng";
-            ColMaHang.MinimumWidth = 6;
-            ColMaHang.Name = "ColMaHang";
-            // 
-            // colTenHang
-            // 
-            colTenHang.HeaderText = "Tên hàng ";
-            colTenHang.MinimumWidth = 6;
-            colTenHang.Name = "colTenHang";
-            // 
-            // colHang
-            // 
-            colHang.HeaderText = "Hãng";
-            colHang.MinimumWidth = 6;
-            colHang.Name = "colHang";
-            // 
-            // colLoai
-            // 
-            colLoai.HeaderText = "Loại";
-            colLoai.MinimumWidth = 6;
-            colLoai.Name = "colLoai";
-            // 
-            // colMau
-            // 
-            colMau.HeaderText = "Màu";
-            colMau.MinimumWidth = 6;
-            colMau.Name = "colMau";
-            // 
-            // colDungLuong
-            // 
-            colDungLuong.HeaderText = "Dung lượng";
-            colDungLuong.MinimumWidth = 6;
-            colDungLuong.Name = "colDungLuong";
-            // 
-            // colGiaBan
-            // 
-            colGiaBan.HeaderText = "Giá bán";
-            colGiaBan.MinimumWidth = 6;
-            colGiaBan.Name = "colGiaBan";
-            // 
-            // colSL
-            // 
-            colSL.HeaderText = "SL";
-            colSL.MinimumWidth = 6;
-            colSL.Name = "colSL";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.ForeColor = Color.Blue;
-            label6.Location = new Point(34, 54);
-            label6.Margin = new Padding(5, 0, 5, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(112, 32);
-            label6.TabIndex = 0;
-            label6.Text = "Tìm thấy:";
-            // 
-            // Form6
-            // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1924, 1129);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
-            Margin = new Padding(5, 5, 5, 5);
-            Name = "Form6";
-            Text = "Tìm kiếm điẹn thoại";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvKetQua).EndInit();
-            ResumeLayout(false);
-        }
-
-        #endregion
+        private readonly Color mauNen = Color.FromArgb(244, 247, 252);
+        private readonly Color mauChu = Color.FromArgb(35, 48, 68);
+        private readonly Color mauXanh = Color.FromArgb(41, 98, 170);
+        private readonly Color mauXanhDam = Color.FromArgb(30, 75, 135);
+        private readonly Color mauDo = Color.FromArgb(220, 75, 75);
+        private readonly Color mauXam = Color.FromArgb(105, 119, 139);
+        private readonly Color mauVien = Color.FromArgb(220, 227, 237);
 
         private GroupBox groupBox1;
-        private TextBox txtTenHang;
-        private Label label2;
-        private Label label4;
-        private Label label3;
-        private Label label1;
-        private GroupBox groupBox2;
-        private TextBox txtGiaDen;
-        private TextBox txtGiaTu;
-        private Label label5;
         private ComboBox cboLoai;
         private ComboBox cboHang;
         private ComboBox cboMau;
@@ -362,8 +25,17 @@
         private Button button3;
         private Button button2;
         private Button button1;
+        private TextBox txtGiaDen;
+        private TextBox txtGiaTu;
+        private TextBox txtTenHang;
+        private Label label2;
+        private Label label5;
+        private Label label4;
         private Label label7;
-        private Label label6;
+        private Label label3;
+        private Label label1;
+
+        private GroupBox groupBox2;
         private DataGridView dgvKetQua;
         private DataGridViewTextBoxColumn ColMaHang;
         private DataGridViewTextBoxColumn colTenHang;
@@ -373,5 +45,389 @@
         private DataGridViewTextBoxColumn colDungLuong;
         private DataGridViewTextBoxColumn colGiaBan;
         private DataGridViewTextBoxColumn colSL;
+        private Label label6;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && components != null)
+                components.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        private void InitializeComponent()
+        {
+            components = new System.ComponentModel.Container();
+
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+
+            cboLoai = new ComboBox();
+            cboHang = new ComboBox();
+            cboMau = new ComboBox();
+
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
+
+            txtGiaDen = new TextBox();
+            txtGiaTu = new TextBox();
+            txtTenHang = new TextBox();
+
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+
+            dgvKetQua = new DataGridView();
+
+            ColMaHang = new DataGridViewTextBoxColumn();
+            colTenHang = new DataGridViewTextBoxColumn();
+            colHang = new DataGridViewTextBoxColumn();
+            colLoai = new DataGridViewTextBoxColumn();
+            colMau = new DataGridViewTextBoxColumn();
+            colDungLuong = new DataGridViewTextBoxColumn();
+            colGiaBan = new DataGridViewTextBoxColumn();
+            colSL = new DataGridViewTextBoxColumn();
+
+            ((System.ComponentModel.ISupportInitialize)dgvKetQua).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            SuspendLayout();
+
+            // FORM
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = mauNen;
+            Font = new Font("Segoe UI", 10F);
+            ClientSize = new Size(1400, 850);
+            MinimumSize = new Size(1000, 700);
+            Name = "Form6";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "TÌM KIẾM ĐIỆN THOẠI";
+            WindowState = FormWindowState.Maximized;
+
+            // GROUPBOX 1 - TIÊU CHÍ TÌM KIẾM
+            groupBox1.Text = "TIÊU CHÍ TÌM KIẾM";
+            groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            groupBox1.ForeColor = mauChu;
+            groupBox1.BackColor = Color.White;
+            groupBox1.Padding = new Padding(15);
+            groupBox1.Location = new Point(18, 15);
+            groupBox1.Size = new Size(1300, 270);
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+            // LABEL
+            SetupLabel(label1, "Tên hàng");
+            SetupLabel(label3, "Hãng sản xuất");
+            SetupLabel(label5, "Loại hàng");
+            SetupLabel(label2, "Màu sắc");
+            SetupLabel(label7, "Giá từ");
+            SetupLabel(label4, "Giá đến");
+
+            // TEXTBOX
+            SetupTextBox(txtTenHang);
+            SetupTextBox(txtGiaTu);
+            SetupTextBox(txtGiaDen);
+
+            // COMBOBOX
+            SetupComboBox(cboHang);
+            SetupComboBox(cboLoai);
+            SetupComboBox(cboMau);
+
+            // BUTTON
+            button1.Text = "⌕  Tìm kiếm";
+            button2.Text = "↻  Làm mới";
+            button3.Text = "✕  Xóa lọc";
+            button4.Text = "←  Thoát";
+
+            StyleButton(button1, mauXanh, Color.White);
+            StyleButton(button2, Color.FromArgb(36, 155, 110), Color.White);
+            StyleButton(button3, mauXam, Color.White);
+            StyleButton(button4, Color.FromArgb(70, 82, 100), Color.White);
+
+            // ADD CONTROLS GROUPBOX 1
+            groupBox1.Controls.AddRange(new Control[]
+            {
+                label1, txtTenHang,
+                label3, cboHang,
+                label5, cboLoai,
+                label2, cboMau,
+                label7, txtGiaTu,
+                label4, txtGiaDen,
+                button1, button2, button3, button4
+            });
+
+            // GROUPBOX 2 - KẾT QUẢ
+            groupBox2.Text = "KẾT QUẢ TÌM KIẾM";
+            groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            groupBox2.ForeColor = mauChu;
+            groupBox2.BackColor = Color.White;
+            groupBox2.Padding = new Padding(12);
+            groupBox2.Location = new Point(18, 300);
+            groupBox2.Size = new Size(1300, 500);
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom |
+                               AnchorStyles.Left | AnchorStyles.Right;
+
+            // LABEL SỐ LƯỢNG
+            label6.Text = "Tìm thấy:";
+            label6.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label6.ForeColor = mauXanh;
+            label6.AutoSize = true;
+            label6.Location = new Point(18, 35);
+
+            // DATAGRIDVIEW
+            dgvKetQua.BackgroundColor = Color.White;
+            dgvKetQua.BorderStyle = BorderStyle.None;
+            dgvKetQua.GridColor = mauVien;
+
+            dgvKetQua.EnableHeadersVisualStyles = false;
+
+            dgvKetQua.ColumnHeadersDefaultCellStyle.BackColor = mauXanhDam;
+            dgvKetQua.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvKetQua.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 10F, FontStyle.Bold);
+
+            dgvKetQua.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvKetQua.ColumnHeadersHeight = 45;
+            dgvKetQua.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            dgvKetQua.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
+            dgvKetQua.DefaultCellStyle.ForeColor = mauChu;
+            dgvKetQua.DefaultCellStyle.BackColor = Color.White;
+
+            dgvKetQua.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(218, 232, 250);
+
+            dgvKetQua.DefaultCellStyle.SelectionForeColor = mauChu;
+
+            dgvKetQua.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(244, 248, 253);
+
+            dgvKetQua.RowTemplate.Height = 38;
+
+            dgvKetQua.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvKetQua.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvKetQua.MultiSelect = false;
+            dgvKetQua.ReadOnly = true;
+            dgvKetQua.AllowUserToAddRows = false;
+            dgvKetQua.AllowUserToDeleteRows = false;
+            dgvKetQua.RowHeadersVisible = false;
+
+            // CÁC CỘT DỮ LIỆU
+            ColMaHang.HeaderText = "Mã hàng";
+            ColMaHang.Name = "ColMaHang";
+            ColMaHang.MinimumWidth = 90;
+            ColMaHang.FillWeight = 85;
+
+            colTenHang.HeaderText = "Tên hàng";
+            colTenHang.Name = "colTenHang";
+            colTenHang.MinimumWidth = 130;
+            colTenHang.FillWeight = 150;
+
+            colHang.HeaderText = "Hãng sản xuất";
+            colHang.Name = "colHang";
+            colHang.MinimumWidth = 110;
+            colHang.FillWeight = 110;
+
+            colLoai.HeaderText = "Loại hàng";
+            colLoai.Name = "colLoai";
+            colLoai.MinimumWidth = 90;
+            colLoai.FillWeight = 95;
+
+            colMau.HeaderText = "Màu sắc";
+            colMau.Name = "colMau";
+            colMau.MinimumWidth = 85;
+            colMau.FillWeight = 90;
+
+            colDungLuong.HeaderText = "Dung lượng";
+            colDungLuong.Name = "colDungLuong";
+            colDungLuong.MinimumWidth = 100;
+            colDungLuong.FillWeight = 95;
+
+            colGiaBan.HeaderText = "Giá bán";
+            colGiaBan.Name = "colGiaBan";
+            colGiaBan.MinimumWidth = 110;
+            colGiaBan.FillWeight = 110;
+
+            colSL.HeaderText = "Số lượng";
+            colSL.Name = "colSL";
+            colSL.MinimumWidth = 80;
+            colSL.FillWeight = 80;
+
+            dgvKetQua.Columns.AddRange(new DataGridViewColumn[]
+            {
+                ColMaHang,
+                colTenHang,
+                colHang,
+                colLoai,
+                colMau,
+                colDungLuong,
+                colGiaBan,
+                colSL
+            });
+
+            dgvKetQua.AutoGenerateColumns = false;
+
+            groupBox2.Controls.Add(label6);
+            groupBox2.Controls.Add(dgvKetQua);
+
+            // ADD TO FORM
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+
+            // BỐ TRÍ RESPONSIVE
+            Resize += (sender, e) => LayoutForm6();
+
+            groupBox1.Resize += (sender, e) => LayoutForm6();
+            groupBox2.Resize += (sender, e) => LayoutForm6();
+
+            LayoutForm6();
+
+            ((System.ComponentModel.ISupportInitialize)dgvKetQua).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ResumeLayout(false);
+        }
+
+        private void LayoutForm6()
+        {
+            if (groupBox1 == null || groupBox2 == null || dgvKetQua == null)
+                return;
+
+            int margin = 18;
+            int formWidth = ClientSize.Width;
+            int formHeight = ClientSize.Height;
+
+            int groupWidth = Math.Max(500, formWidth - margin * 2);
+
+            // KHUNG TIÊU CHÍ
+            groupBox1.SetBounds(margin, 15, groupWidth, 270);
+
+            int innerWidth = groupBox1.ClientSize.Width - 40;
+            int gap = 25;
+            int colWidth = Math.Max(130, (innerWidth - gap * 2) / 3);
+
+            int x1 = 20;
+            int x2 = x1 + colWidth + gap;
+            int x3 = x2 + colWidth + gap;
+
+            int labelY1 = 35;
+            int inputY1 = 61;
+            int labelY2 = 112;
+            int inputY2 = 138;
+
+            // HÀNG 1
+            label1.Location = new Point(x1, labelY1);
+            txtTenHang.SetBounds(x1, inputY1, colWidth, 34);
+
+            label3.Location = new Point(x2, labelY1);
+            cboHang.SetBounds(x2, inputY1, colWidth, 34);
+
+            label5.Location = new Point(x3, labelY1);
+            cboLoai.SetBounds(x3, inputY1, colWidth, 34);
+
+            // HÀNG 2
+            label2.Location = new Point(x1, labelY2);
+            cboMau.SetBounds(x1, inputY2, colWidth, 34);
+
+            label7.Location = new Point(x2, labelY2);
+            txtGiaTu.SetBounds(x2, inputY2, colWidth, 34);
+
+            label4.Location = new Point(x3, labelY2);
+            txtGiaDen.SetBounds(x3, inputY2, colWidth, 34);
+
+            // NHÓM NÚT
+            int buttonY = 198;
+            int buttonWidth = 155;
+            int buttonHeight = 48;
+            int buttonGap = 15;
+            int buttonX = 20;
+
+            button1.SetBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+            buttonX += buttonWidth + buttonGap;
+
+            button2.SetBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+            buttonX += buttonWidth + buttonGap;
+
+            button3.SetBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+            buttonX += buttonWidth + buttonGap;
+
+            button4.SetBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+
+            // KHUNG KẾT QUẢ
+            int resultTop = 300;
+            int resultHeight = Math.Max(200, formHeight - resultTop - margin);
+
+            groupBox2.SetBounds(
+                margin,
+                resultTop,
+                groupWidth,
+                resultHeight
+            );
+
+            // DÒNG THỐNG KÊ
+            label6.Location = new Point(18, 34);
+
+            // BẢNG DỮ LIỆU
+            int gridTop = 65;
+            int gridLeft = 15;
+            int gridWidth = Math.Max(300, groupBox2.ClientSize.Width - 30);
+            int gridHeight = Math.Max(100, groupBox2.ClientSize.Height - gridTop - 15);
+
+            dgvKetQua.SetBounds(
+                gridLeft,
+                gridTop,
+                gridWidth,
+                gridHeight
+            );
+        }
+
+        private void SetupLabel(Label lbl, string text)
+        {
+            lbl.Text = text;
+            lbl.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lbl.ForeColor = mauChu;
+            lbl.AutoSize = true;
+        }
+
+        private void SetupTextBox(TextBox txt)
+        {
+            txt.Font = new Font("Segoe UI", 10F);
+            txt.ForeColor = mauChu;
+            txt.BackColor = Color.FromArgb(250, 252, 255);
+            txt.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void SetupComboBox(ComboBox cbo)
+        {
+            cbo.Font = new Font("Segoe UI", 10F);
+            cbo.ForeColor = mauChu;
+            cbo.BackColor = Color.White;
+            cbo.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        private void StyleButton(Button btn, Color backColor, Color foreColor)
+        {
+            btn.BackColor = backColor;
+            btn.ForeColor = foreColor;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btn.Cursor = Cursors.Hand;
+            btn.UseVisualStyleBackColor = false;
+        }
     }
 }
