@@ -19,6 +19,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
             button1.Click += btnDangNhap_Click;
             button2.Click += (s, e) => Application.Exit();
+
             AcceptButton = button1;
             CancelButton = button2;
         }
@@ -28,27 +29,56 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             string tk = txtMaNhanVien.Text.Trim();
             string mk = txtMatKhau.Text.Trim();
 
-            // Goi qua tang Business Logic Layer (BUS)
+            if (string.IsNullOrWhiteSpace(tk) || string.IsNullOrWhiteSpace(mk))
+            {
+                MessageBox.Show(
+                    "Vui lòng nhập đầy đủ mã nhân viên và mật khẩu!",
+                    "Thông báo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            // Kiểm tra đăng nhập qua BUS
             if (nhanVienBus.DangNhap(tk, mk, out NhanVien? nv, out string error))
             {
                 MaNVDangNhap = nv!.MaNV;
                 TenNVDangNhap = nv.HoTen;
                 VaiTroDangNhap = nv.VaiTro;
 
-                MessageBox.Show($"Đăng nhập thành công!\nXin chào {TenNVDangNhap} ({VaiTroDangNhap})", 
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
 
+                // Ẩn Form đăng nhập
                 this.Hide();
+
+                // Mở Form10
                 Form10 main = new Form10();
-                main.FormClosed += (s, args) => {
+
+                // Khi Form10 đóng thì quay lại Form9
+                main.FormClosed += (s, args) =>
+                {
                     txtMatKhau.Clear();
+                    txtMaNhanVien.Focus();
+
+                    // Xóa thông tin phiên đăng nhập
+                    MaNVDangNhap = "";
+                    TenNVDangNhap = "";
+                    VaiTroDangNhap = "";
+
                     this.Show();
                 };
+
                 main.Show();
             }
             else
             {
-                MessageBox.Show(error, "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    error,
+                    "Lỗi đăng nhập",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
                 txtMatKhau.Focus();
                 txtMatKhau.SelectAll();
             }

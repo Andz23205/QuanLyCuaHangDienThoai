@@ -195,25 +195,12 @@ INSERT INTO tblHang VALUES
 ('SP012','Realme C55','HSX006','L003','M002','DL002',2500000,3800000,60,N'Helio G88, 64MP camera'),
 ('SP013','iPhone 14 Pro 128GB','HSX001','L001','M005','DL002',20000000,26000000,8,N'Chip A16, Always-On display'),
 ('SP014','Samsung Galaxy Z Fold 5','HSX002','L001','M001','DL004',30000000,40000000,5,N'Màn hình gập, Snapdragon 8 Gen 2'),
-('SP015','Xiaomi Poco X6 Pro','HSX003','L002','M007','DL002',6000000,8500000,25,N'Dimensity 8300, 144Hz display'),
-('SP016','OPPO Reno 11','HSX004','L002','M006','DL002',7500000,10000000,20,N'Dimensity 7050, 80W charging'),
-('SP017','Vivo V29e','HSX005','L002','M003','DL002',5500000,7500000,30,N'Snapdragon 695, 50MP selfie'),
-('SP018','Realme 12 Pro+','HSX006','L002','M002','DL002',7000000,9500000,20,N'Snapdragon 7s Gen 2, periscope cam'),
-('SP019','iPhone SE 2022','HSX001','L002','M002','DL002',10000000,14000000,12,N'Chip A15, thiết kế cổ điển'),
-('SP020','Samsung Galaxy M34','HSX002','L003','M004','DL002',4000000,5800000,40,N'Exynos 1280, pin 6000mAh'),
-('SP021','Xiaomi Redmi 12C','HSX003','L003','M003','DL001',1800000,2800000,70,N'Helio G85, pin 5000mAh'),
-('SP022','OPPO A58','HSX004','L003','M002','DL001',2800000,4000000,55,N'Helio G85, 50MP camera'),
 ('SP023','Vivo Y17s','HSX005','L003','M005','DL001',2200000,3200000,65,N'Helio G85, pin 5000mAh'),
 ('SP024','Realme C30','HSX006','L003','M001','DL001',1500000,2400000,80,N'UNISOC T612, thiết kế mỏng'),
 ('SP025','iPhone 15 Pro 256GB','HSX001','L001','M007','DL003',23000000,30000000,10,N'Titanium, USB-C, A17 Pro'),
 ('SP026','Samsung Galaxy S23 FE','HSX002','L001','M006','DL002',9000000,12500000,18,N'Exynos 2200, 50MP camera'),
-('SP027','Xiaomi 13T Pro','HSX003','L001','M001','DL003',14000000,19000000,12,N'Dimensity 9200+, Leica tuned'),
-('SP028','OPPO Find N3 Flip','HSX004','L001','M001','DL003',18000000,24000000,6,N'Dimensity 9200, màn gập vỏ sò'),
-('SP029','Vivo X90 Pro','HSX005','L001','M001','DL003',16000000,21000000,9,N'Dimensity 9200, ZEISS cinema cam'),
-('SP030','Realme GT Neo 5','HSX006','L001','M007','DL003',10000000,14000000,14,N'Snapdragon 8+ Gen 1, 150W charging'),
-('SP031','iPhone 12 64GB','HSX001','L002','M002','DL001',9000000,12000000,5,N'Chip A14, 5G, OLED'),
-('SP032','Samsung Galaxy A14','HSX002','L003','M003','DL001',2500000,3600000,50,N'Exynos 850, 50MP camera'),
-('SP033','Xiaomi Poco M6 Pro','HSX003','L002','M004','DL002',4500000,6500000,30,N'Helio G99 Ultra, 64MP');
+('SP027','Xiaomi 13T Pro','HSX003','L001','M001','DL003',14000000,19000000,12,N'Dimensity 9200+, Leica tuned');
+
 GO
 
 INSERT INTO tblHoaDonBan VALUES
