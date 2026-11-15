@@ -508,12 +508,60 @@ UPDATE dbo.tblKhachHang SET Email = 'viet.duong@example.com'
 WHERE MaKH = 'KH010';
 GO
 
+USE QLCuaHangBanDienThoai;
+GO
 
-SELECT
-    MaNCC,
-    TenNCC,
-    SDT,
-    DiaChi,
-    Email,
-    NguoiLH
-FROM dbo.tblNhaCungCap;
+DECLARE @MaNV VARCHAR(10);
+DECLARE @MaKH VARCHAR(10);
+DECLARE @i INT = 0;
+
+-- Lấy mã nhân viên và khách hàng đang tồn tại
+SELECT TOP 1 @MaNV = MaNV FROM dbo.tblNhanVien ORDER BY MaNV;
+SELECT TOP 1 @MaKH = MaKH FROM dbo.tblKhachHang ORDER BY MaKH;
+
+-- Kiểm tra dữ liệu đầu vào
+IF @MaNV IS NULL OR @MaKH IS NULL
+BEGIN
+    PRINT N'Không tìm thấy nhân viên hoặc khách hàng. Hãy kiểm tra dữ liệu hai bảng.';
+    RETURN;
+END;
+
+DECLARE @DoanhThu TABLE
+(
+    Ngay INT,
+    TongTien DECIMAL(18,2)
+);
+
+INSERT INTO @DoanhThu (Ngay, TongTien)
+VALUES
+    (0, 2500000),
+    (1, 4200000),
+    (2, 1800000),
+    (3, 6500000),
+    (4, 3200000),
+    (5, 7800000),
+    (6, 5500000);
+
+WHILE @i <= 6
+BEGIN
+    INSERT INTO dbo.tblHoaDonBan
+    (
+        MaHDB,
+        MaNV,
+        MaKH,
+        NgayLap,
+        TongTien
+    )
+    VALUES
+    (
+        'TEST' + RIGHT('000' + CAST(@i + 1 AS VARCHAR(3)), 3),
+        @MaNV,
+        @MaKH,
+        DATEADD(DAY, -@i, GETDATE()),
+        (SELECT TongTien FROM @DoanhThu WHERE Ngay = @i)
+    );
+
+    SET @i = @i + 1;
+END;
+GO
+

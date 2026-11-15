@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            cboLoai = new ComboBox();
+            cboDungLuong = new ComboBox();
+            cboMau = new ComboBox();
+            cboHang = new ComboBox();
             txtGiaBan = new TextBox();
             txtTenHang = new TextBox();
             txtSoLuong = new TextBox();
@@ -44,6 +48,7 @@
             label6 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            lblTenAnh = new Label();
             picAnh = new PictureBox();
             btnChonAnh = new Button();
             groupBox3 = new GroupBox();
@@ -56,11 +61,6 @@
             txtTim = new TextBox();
             btnTim = new Button();
             label10 = new Label();
-            cboHang = new ComboBox();
-            cboMau = new ComboBox();
-            cboDungLuong = new ComboBox();
-            cboLoai = new ComboBox();
-            lblTenAnh = new Label();
             dgvHang = new DataGridView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -92,11 +92,42 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(37, 48);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1074, 390);
+            groupBox1.Size = new Size(1094, 390);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thong tin dien thoai";
-            //groupBox1.Enter += groupBox1_Enter;
+            // 
+            // cboLoai
+            // 
+            cboLoai.FormattingEnabled = true;
+            cboLoai.Location = new Point(757, 114);
+            cboLoai.Name = "cboLoai";
+            cboLoai.Size = new Size(216, 40);
+            cboLoai.TabIndex = 16;
+            // 
+            // cboDungLuong
+            // 
+            cboDungLuong.FormattingEnabled = true;
+            cboDungLuong.Location = new Point(757, 188);
+            cboDungLuong.Name = "cboDungLuong";
+            cboDungLuong.Size = new Size(216, 40);
+            cboDungLuong.TabIndex = 15;
+            // 
+            // cboMau
+            // 
+            cboMau.FormattingEnabled = true;
+            cboMau.Location = new Point(176, 188);
+            cboMau.Name = "cboMau";
+            cboMau.Size = new Size(216, 40);
+            cboMau.TabIndex = 14;
+            // 
+            // cboHang
+            // 
+            cboHang.FormattingEnabled = true;
+            cboHang.Location = new Point(176, 119);
+            cboHang.Name = "cboHang";
+            cboHang.Size = new Size(216, 40);
+            cboHang.TabIndex = 13;
             // 
             // txtGiaBan
             // 
@@ -125,7 +156,6 @@
             txtGiaNhap.Name = "txtGiaNhap";
             txtGiaNhap.Size = new Size(256, 39);
             txtGiaNhap.TabIndex = 5;
-            //txtGiaNhap.TextChanged += textBox2_TextChanged;
             // 
             // txtMaHang
             // 
@@ -220,12 +250,21 @@
             groupBox2.Controls.Add(lblTenAnh);
             groupBox2.Controls.Add(picAnh);
             groupBox2.Controls.Add(btnChonAnh);
-            groupBox2.Location = new Point(1135, 22);
+            groupBox2.Location = new Point(1167, 22);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(726, 416);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Anh dai dien";
+            // 
+            // lblTenAnh
+            // 
+            lblTenAnh.AutoSize = true;
+            lblTenAnh.Location = new Point(342, 360);
+            lblTenAnh.Name = "lblTenAnh";
+            lblTenAnh.Size = new Size(91, 32);
+            lblTenAnh.TabIndex = 3;
+            lblTenAnh.Text = "label11";
             // 
             // picAnh
             // 
@@ -253,7 +292,7 @@
             groupBox3.Controls.Add(btnThem);
             groupBox3.Location = new Point(37, 462);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(1074, 164);
+            groupBox3.Size = new Size(1094, 164);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Chuc nang";
@@ -308,7 +347,7 @@
             groupBox4.Controls.Add(txtTim);
             groupBox4.Controls.Add(btnTim);
             groupBox4.Controls.Add(label10);
-            groupBox4.Location = new Point(1137, 462);
+            groupBox4.Location = new Point(1169, 462);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(724, 164);
             groupBox4.TabIndex = 3;
@@ -340,61 +379,20 @@
             label10.TabIndex = 0;
             label10.Text = "Ten:";
             // 
-            // cboHang
-            // 
-            cboHang.FormattingEnabled = true;
-            cboHang.Location = new Point(176, 119);
-            cboHang.Name = "cboHang";
-            cboHang.Size = new Size(216, 40);
-            cboHang.TabIndex = 13;
-            // 
-            // cboMau
-            // 
-            cboMau.FormattingEnabled = true;
-            cboMau.Location = new Point(176, 188);
-            cboMau.Name = "cboMau";
-            cboMau.Size = new Size(216, 40);
-            cboMau.TabIndex = 14;
-            // 
-            // cboDungLuong
-            // 
-            cboDungLuong.FormattingEnabled = true;
-            cboDungLuong.Location = new Point(757, 188);
-            cboDungLuong.Name = "cboDungLuong";
-            cboDungLuong.Size = new Size(216, 40);
-            cboDungLuong.TabIndex = 15;
-            // 
-            // cboLoai
-            // 
-            cboLoai.FormattingEnabled = true;
-            cboLoai.Location = new Point(757, 114);
-            cboLoai.Name = "cboLoai";
-            cboLoai.Size = new Size(216, 40);
-            cboLoai.TabIndex = 16;
-            // 
-            // lblTenAnh
-            // 
-            lblTenAnh.AutoSize = true;
-            lblTenAnh.Location = new Point(342, 360);
-            lblTenAnh.Name = "lblTenAnh";
-            lblTenAnh.Size = new Size(91, 32);
-            lblTenAnh.TabIndex = 3;
-            lblTenAnh.Text = "label11";
-            // 
             // dgvHang
             // 
             dgvHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvHang.Location = new Point(43, 655);
             dgvHang.Name = "dgvHang";
             dgvHang.RowHeadersWidth = 82;
-            dgvHang.Size = new Size(1820, 420);
+            dgvHang.Size = new Size(1850, 420);
             dgvHang.TabIndex = 4;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1910, 1150);
+            ClientSize = new Size(1924, 1129);
             Controls.Add(dgvHang);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
