@@ -84,6 +84,26 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
         {
             InitializeComponent();
 
+            string fileKiemTra = Path.Combine(
+    Application.StartupPath, "Images", "DT001.jpg");
+
+            string ketQuaAnh;
+
+            try
+            {
+                using var anh = Image.FromFile(fileKiemTra);
+                ketQuaAnh = $"Đọc ảnh OK: {anh.Width} × {anh.Height}";
+            }
+            catch (Exception ex)
+            {
+                ketQuaAnh = "Lỗi đọc ảnh: " + ex.Message;
+            }
+
+            MessageBox.Show(
+                "Đường dẫn ảnh:\n" + fileKiemTra +
+                "\n\nFile tồn tại: " + File.Exists(fileKiemTra) +
+                "\n" + ketQuaAnh,
+                "Kiểm tra ảnh");
             Text = "PHONE STORE - KHÁCH HÀNG";
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
