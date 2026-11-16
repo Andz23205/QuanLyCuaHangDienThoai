@@ -755,7 +755,9 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     SizeMode = PictureBoxSizeMode.Zoom
                 };
 
-                string duongDanAnh = Path.Combine(ThuMucAnh, tenAnh);
+                string duongDanAnh = Path.Combine( ThuMucAnh,
+      Path.GetFileName(tenAnh.Trim())
+  );
 
                 if (!string.IsNullOrWhiteSpace(tenAnh) &&
                     File.Exists(duongDanAnh))
@@ -763,11 +765,16 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                     try
                     {
                         using (Image img = Image.FromFile(duongDanAnh))
+                        {
                             pic.Image = new Bitmap(img);
+                        }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        pic.Image = null;
+                        MessageBox.Show(
+                            "Không thể tải ảnh: " + tenAnh +
+                            "\nChi tiết: " + ex.Message
+                        );
                     }
                 }
 

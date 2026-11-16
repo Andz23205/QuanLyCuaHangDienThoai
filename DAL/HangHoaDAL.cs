@@ -13,47 +13,76 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
         }
 
         // Goi Stored Procedure: sp_ThemHang
+
         public int Them(HangHoa h)
         {
-            SqlParameter[] pars = {
-                new SqlParameter("@MaHang", h.MaHang),
-                new SqlParameter("@TenHang", h.TenHang),
-                new SqlParameter("@MaHangSX", (object?)h.MaHangSX ?? DBNull.Value),
-                new SqlParameter("@MaLoai", (object?)h.MaLoai ?? DBNull.Value),
-                new SqlParameter("@MaMau", (object?)h.MaMau ?? DBNull.Value),
-                new SqlParameter("@MaDungLuong", (object?)h.MaDungLuong ?? DBNull.Value),
-                new SqlParameter("@DonGiaNhap", h.GiaNhap),
-                new SqlParameter("@DonGiaBan", h.GiaBan),
-                new SqlParameter("@SoLuongTon", h.SoLuongTon),
-                new SqlParameter("@TenAnh", string.IsNullOrWhiteSpace(h.TenAnh) ? (object)DBNull.Value : h.TenAnh)
-            };
-            return DatabaseAccess.ThucThiProc("sp_ThemHang", pars);
+            SqlParameter[] pars =
+            {
+        new SqlParameter("@MaHang", h.MaHang),
+        new SqlParameter("@TenHang", h.TenHang),
+        new SqlParameter("@MaHangSX", (object?)h.MaHangSX ?? DBNull.Value),
+        new SqlParameter("@MaLoai", (object?)h.MaLoai ?? DBNull.Value),
+        new SqlParameter("@MaMau", (object?)h.MaMau ?? DBNull.Value),
+        new SqlParameter("@MaDungLuong", (object?)h.MaDungLuong ?? DBNull.Value),
+        new SqlParameter("@DonGiaNhap", h.GiaNhap),
+        new SqlParameter("@DonGiaBan", h.GiaBan),
+        new SqlParameter("@SoLuongTon", h.SoLuongTon),
+        new SqlParameter("@TenAnh",
+            string.IsNullOrWhiteSpace(h.TenAnh)
+                ? (object)DBNull.Value
+                : h.TenAnh)
+    };
+
+            return DatabaseAccess.ThucThiProcLayMaTraVe(
+                "sp_ThemHang",
+                pars
+            );
         }
+
 
         // Goi Stored Procedure: sp_CapNhatHang
+
         public int Sua(HangHoa h)
         {
-            SqlParameter[] pars = {
-                new SqlParameter("@MaHang", h.MaHang),
-                new SqlParameter("@TenHang", h.TenHang),
-                new SqlParameter("@MaHangSX", (object?)h.MaHangSX ?? DBNull.Value),
-                new SqlParameter("@MaLoai", (object?)h.MaLoai ?? DBNull.Value),
-                new SqlParameter("@MaMau", (object?)h.MaMau ?? DBNull.Value),
-                new SqlParameter("@MaDungLuong", (object?)h.MaDungLuong ?? DBNull.Value),
-                new SqlParameter("@DonGiaNhap", h.GiaNhap),
-                new SqlParameter("@DonGiaBan", h.GiaBan),
-                new SqlParameter("@SoLuongTon", h.SoLuongTon),
-                new SqlParameter("@TenAnh", string.IsNullOrWhiteSpace(h.TenAnh) ? (object)DBNull.Value : h.TenAnh)
-            };
-            return DatabaseAccess.ThucThiProc("sp_CapNhatHang", pars);
+            SqlParameter[] pars =
+            {
+        new SqlParameter("@MaHang", h.MaHang),
+        new SqlParameter("@TenHang", h.TenHang),
+        new SqlParameter("@MaHangSX", (object?)h.MaHangSX ?? DBNull.Value),
+        new SqlParameter("@MaLoai", (object?)h.MaLoai ?? DBNull.Value),
+        new SqlParameter("@MaMau", (object?)h.MaMau ?? DBNull.Value),
+        new SqlParameter("@MaDungLuong", (object?)h.MaDungLuong ?? DBNull.Value),
+        new SqlParameter("@DonGiaNhap", h.GiaNhap),
+        new SqlParameter("@DonGiaBan", h.GiaBan),
+        new SqlParameter("@SoLuongTon", h.SoLuongTon),
+        new SqlParameter("@TenAnh",
+            string.IsNullOrWhiteSpace(h.TenAnh)
+                ? (object)DBNull.Value
+                : h.TenAnh)
+    };
+
+            return DatabaseAccess.ThucThiProcLayMaTraVe(
+                "sp_CapNhatHang",
+                pars
+            );
         }
 
-        // Goi Stored Procedure: sp_XoaHang
+
         public int Xoa(string maHang)
         {
-            SqlParameter[] pars = { new SqlParameter("@MaHang", maHang) };
-            return DatabaseAccess.ThucThiProc("sp_XoaHang", pars);
+            SqlParameter[] pars =
+            {
+        new SqlParameter("@MaHang", maHang)
+    };
+
+            return DatabaseAccess.ThucThiProcLayMaTraVe(
+                "sp_XoaHang",
+                pars
+            );
         }
+
+
+
 
         // Goi Stored Procedure: sp_TimKiemHang
         public DataTable TimKiem(string? ten, string? hang, string? loai, string? mau, decimal? giaTu, decimal? giaDen)

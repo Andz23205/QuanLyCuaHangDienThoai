@@ -746,3 +746,14 @@ SET TrangThaiThanhToan = N'Đã thanh toán',
     NgayThanhToan = GETDATE()
 WHERE MaHDB = 'MÃ_HÓA_ĐƠN'
   AND TrangThaiThanhToan = N'Chờ xác nhận chuyển khoản';
+
+
+
+
+  SELECT MaHang, TenHang, TenAnh
+FROM tblHang;
+
+
+SELECT MaHang, TenHang, Hang, Mau, DungLuong,
+       DonGiaBan, SoLuongTon, TenAnh
+FROM tblHang;

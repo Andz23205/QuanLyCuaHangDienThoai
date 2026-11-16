@@ -69,6 +69,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             cboNCC.SelectedIndexChanged += cboNCC_SelectedIndexChanged;
             txtSoLuong.TextChanged -= txtSoLuong_TextChanged;
             txtSoLuong.TextChanged += txtSoLuong_TextChanged;
+            txtMaNV.TextChanged -= txtMaNV_TextChanged;
+            txtMaNV.TextChanged += txtMaNV_TextChanged;
 
             button1.Click -= button1_Click;
             button1.Click += button1_Click;
@@ -84,6 +86,51 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             btnThoat.Click += btnThoat_Click;
             btnIn.Click -= btnIn_Click;
             btnIn.Click += btnIn_Click;
+        }
+        private void txtMaNV_TextChanged(object sender, EventArgs e)
+        {
+            string maNV = txtMaNV.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(maNV))
+            {
+                txtTenNV.Clear();
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conn = KetNoiCSDL.TaoKetNoi())
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        "SELECT TenNV FROM tblNhanVien WHERE MaNV = @MaNV", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaNV", maNV);
+
+                        object ketQua = cmd.ExecuteScalar();
+
+                        if (ketQua != null && ketQua != DBNull.Value)
+                        {
+                            txtTenNV.Text = ketQua.ToString();
+                        }
+                        else
+                        {
+                            txtTenNV.Clear();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                txtTenNV.Clear();
+
+                MessageBox.Show(
+                    "Không thể lấy thông tin nhân viên: " + ex.Message,
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void NapDuLieuBanDau()

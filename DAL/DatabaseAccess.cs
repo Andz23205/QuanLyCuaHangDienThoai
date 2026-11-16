@@ -83,19 +83,35 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             return dt;
         }
 
-        public static int ThucThiProc(string procName, SqlParameter[]? parameters = null)
+
+        public static int ThucThiProcLayMaTraVe(
+            string procName,
+            SqlParameter[]? parameters = null)
         {
             using (SqlConnection conn = TaoKetNoi())
             {
                 conn.Open();
+
                 using (SqlCommand cmd = new SqlCommand(procName, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+
                     if (parameters != null && parameters.Length > 0)
                         cmd.Parameters.AddRange(parameters);
-                    return cmd.ExecuteNonQuery();
+
+                    // Nhận giá trị RETURN từ Stored Procedure
+                    SqlParameter returnValue = new SqlParameter();
+                    returnValue.Direction = ParameterDirection.ReturnValue;
+                    returnValue.SqlDbType = SqlDbType.Int;
+
+                    cmd.Parameters.Add(returnValue);
+
+                    cmd.ExecuteNonQuery();
+
+                    return Convert.ToInt32(returnValue.Value);
                 }
             }
         }
+
     }
 }
