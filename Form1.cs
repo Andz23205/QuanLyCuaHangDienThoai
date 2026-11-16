@@ -140,9 +140,12 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
             txtSoLuong.Text = r["SoLuong"].ToString();
 
-            tenAnh = "";
-            lblTenAnh.Text = "";
-            HienAnh("");
+            tenAnh = r["TenAnh"] == DBNull.Value
+     ? ""
+     : r["TenAnh"].ToString() ?? "";
+
+            lblTenAnh.Text = tenAnh;
+            HienAnh(tenAnh);
         }
 
         private void btnChonAnh_Click(object? sender, EventArgs e)
@@ -210,14 +213,16 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             { Loi("Số lượng tồn phải là số nguyên không âm.", txtSoLuong); return false; }
 
             hang = new HangHoa(
-                txtMaHang.Text.Trim(),
-                txtTenHang.Text.Trim(),
-                cboHang.SelectedValue?.ToString(),
-                cboLoai.SelectedValue?.ToString(),
-                cboMau.SelectedValue?.ToString(),
-                cboDungLuong.SelectedValue?.ToString(),
-                gn, gb, sl
-            );
+     txtMaHang.Text.Trim(),
+     txtTenHang.Text.Trim(),
+     cboHang.SelectedValue?.ToString(),
+     cboLoai.SelectedValue?.ToString(),
+     cboMau.SelectedValue?.ToString(),
+     cboDungLuong.SelectedValue?.ToString(),
+     gn, gb, sl
+ );
+
+            hang.TenAnh = tenAnh;
             return true;
         }
 

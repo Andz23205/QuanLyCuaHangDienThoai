@@ -2,7 +2,7 @@
 GO
 
 -- 1. Thu tuc lay danh sach hang kem thong tin chi tiet
-CREATE OR ALTER PROCEDURE sp_LayDanhSachHang
+ALTER PROCEDURE sp_LayDanhSachHang
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -10,30 +10,23 @@ BEGIN
     SELECT
         h.MaHang,
         h.TenHang,
-        ISNULL(hsx.TenHangSX, N'') AS Hang,
-        ISNULL(l.TenLoai, N'') AS Loai,
-        ISNULL(m.TenMau, N'') AS Mau,
-        ISNULL(dl.TenDungLuong, N'') AS DungLuong,
-        h.DonGiaNhap AS GiaNhap,
-        h.DonGiaBan AS GiaBan,
-        h.SoLuongTon AS SoLuong,
-        h.MaHangSX,
-        h.MaLoai,
-        h.MaMau,
-        h.MaDungLuong
-    FROM dbo.tblHang AS h
-    LEFT JOIN dbo.tblHangSX AS hsx
-        ON h.MaHangSX = hsx.MaHangSX
-    LEFT JOIN dbo.tblLoai AS l
-        ON h.MaLoai = l.MaLoai
-    LEFT JOIN dbo.tblMau AS m
-        ON h.MaMau = m.MaMau
-    LEFT JOIN dbo.tblDungLuong AS dl
-        ON h.MaDungLuong = dl.MaDungLuong
-    ORDER BY h.MaHang;
+        hs.TenHangSX AS Hang,
+        l.TenLoai AS Loai,
+        m.TenMau AS Mau,
+        dl.TenDungLuong AS DungLuong,
+        h.DonGiaNhap,
+        h.DonGiaBan,
+        h.SoLuongTon,
+        h.MoTa,
+        h.TenAnh
+    FROM tblHang h
+    LEFT JOIN tblHangSX hs ON h.MaHangSX = hs.MaHangSX
+    LEFT JOIN tblLoai l ON h.MaLoai = l.MaLoai
+    LEFT JOIN tblMau m ON h.MaMau = m.MaMau
+    LEFT JOIN tblDungLuong dl ON h.MaDungLuong = dl.MaDungLuong
+    ORDER BY h.TenHang;
 END;
 GO
-
 -- 2. Thu tuc them san pham moi
 CREATE OR ALTER PROCEDURE sp_ThemHang
     @MaHang NVARCHAR(20),
@@ -44,12 +37,24 @@ CREATE OR ALTER PROCEDURE sp_ThemHang
     @MaDungLuong NVARCHAR(20),
     @DonGiaNhap DECIMAL(18,2),
     @DonGiaBan DECIMAL(18,2),
-    @SoLuongTon INT
+    @SoLuongTon INT,
+    @TenAnh NVARCHAR(255) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
-    INSERT INTO tblHang (MaHang, TenHang, MaHangSX, MaLoai, MaMau, MaDungLuong, DonGiaNhap, DonGiaBan, SoLuongTon)
-    VALUES (@MaHang, @TenHang, @MaHangSX, @MaLoai, @MaMau, @MaDungLuong, @DonGiaNhap, @DonGiaBan, @SoLuongTon);
+
+    INSERT INTO tblHang
+    (
+        MaHang, TenHang, MaHangSX, MaLoai,
+        MaMau, MaDungLuong, DonGiaNhap,
+        DonGiaBan, SoLuongTon, TenAnh
+    )
+    VALUES
+    (
+        @MaHang, @TenHang, @MaHangSX, @MaLoai,
+        @MaMau, @MaDungLuong, @DonGiaNhap,
+        @DonGiaBan, @SoLuongTon, @TenAnh
+    );
 END;
 GO
 
@@ -63,19 +68,23 @@ CREATE OR ALTER PROCEDURE sp_CapNhatHang
     @MaDungLuong NVARCHAR(20),
     @DonGiaNhap DECIMAL(18,2),
     @DonGiaBan DECIMAL(18,2),
-    @SoLuongTon INT
+    @SoLuongTon INT,
+    @TenAnh NVARCHAR(255) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
+
     UPDATE tblHang
-    SET TenHang = @TenHang,
+    SET
+        TenHang = @TenHang,
         MaHangSX = @MaHangSX,
         MaLoai = @MaLoai,
         MaMau = @MaMau,
         MaDungLuong = @MaDungLuong,
         DonGiaNhap = @DonGiaNhap,
         DonGiaBan = @DonGiaBan,
-        SoLuongTon = @SoLuongTon
+        SoLuongTon = @SoLuongTon,
+        TenAnh = @TenAnh
     WHERE MaHang = @MaHang;
 END;
 GO

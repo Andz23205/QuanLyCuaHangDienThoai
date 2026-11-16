@@ -134,50 +134,50 @@ INSERT INTO tblHangSX VALUES
 GO
 
 INSERT INTO tblLoai VALUES
-('L001','Điện thoại cao cấp'),('L002','Điện thoại tầm trung'),
-('L003','Điện thoại phổ thông'),('L004','Máy tính bảng');
+('L001',N'Điện thoại cao cấp'),('L002',N'Điện thoại tầm trung'),
+('L003',N'Điện thoại phổ thông'),('L004',N'Máy tính bảng');
 GO
 
 INSERT INTO tblMau VALUES
-('M001','Đen'),('M002','Trắng'),('M003','Xanh dương'),
-('M004','Đỏ'),('M005','Vàng'),('M006','Hồng'),('M007','Xám');
+('M001',N'Đen'),('M002',N'Trắng'),('M003',N'Xanh dương'),
+('M004',N'Đỏ'),('M005',N'Vàng'),('M006',N'Hồng'),('M007',N'Xám');
 GO
 
 INSERT INTO tblDungLuong VALUES
-('DL001','64GB'),('DL002','128GB'),('DL003','256GB'),
-('DL004','512GB'),('DL005','1TB');
+('DL001',N'64GB'),('DL002',N'128GB'),('DL003',N'256GB'),
+('DL004',N'512GB'),('DL005',N'1TB');
 GO
 
 INSERT INTO tblNhaCungCap VALUES
-('NCC001','Công ty TNHH Phân phối Apple VN','0901234567','12 Nguyễn Huệ, Q1, TP.HCM'),
-('NCC002','Samsung Electronics VN','0912345678','15 Lê Lợi, Q1, TP.HCM'),
-('NCC003','Xiaomi Việt Nam','0923456789','20 Trần Hưng Đạo, Q5, TP.HCM'),
-('NCC004','OPPO VN Co., Ltd','0934567890','8 Đinh Tiên Hoàng, Q1, TP.HCM'),
-('NCC005','Vivo VN Technology','0945678901','25 Hai Bà Trưng, Q3, TP.HCM');
+('NCC001',N'Công ty TNHH Phân phối Apple VN','0901234567',N'12 Nguyễn Huệ, Q1, TP.HCM'),
+('NCC002',N'Samsung Electronics VN','0912345678',N'15 Lê Lợi, Q1, TP.HCM'),
+('NCC003',N'Xiaomi Việt Nam','0923456789',N'20 Trần Hưng Đạo, Q5, TP.HCM'),
+('NCC004',N'OPPO VN Co., Ltd','0934567890',N'8 Đinh Tiên Hoàng, Q1, TP.HCM'),
+('NCC005',N'Vivo VN Technology','0945678901',N'25 Hai Bà Trưng, Q3, TP.HCM');
 GO
 
 INSERT INTO tblNhanVien VALUES
-('NV001','Nguyễn Văn An','0901111111','10 Lê Duẩn, Q1, TP.HCM','Quan ly','an','123456'),
-('NV002','Trần Thị Bình','0902222222','20 Điện Biên Phủ, Q3, TP.HCM','Nhan vien','binh','123456'),
-('NV003','Lê Văn Cường','0903333333','30 Võ Văn Tần, Q3, TP.HCM','Nhan vien','cuong','123456'),
-('NV004','Phạm Thị Dung','0904444444','40 Nam Kỳ Khởi Nghĩa, Q1, TP.HCM','Nhan vien','dung','123456'),
-('NV005','Hoàng Văn Em','0905555555','50 Pasteur, Q1, TP.HCM','Nhan vien','em','123456'),
-('NV006','Đặng Thị Phương','0906666666','60 Nguyễn Đình Chiểu, Q3, TP.HCM','Nhan vien','phuong','123456'),
-('NV007','Bùi Văn Giang','0907777777','70 Lý Tự Trọng, Q1, TP.HCM','Nhan vien','giang','123456'),
-('NV008','Ngô Thị Hoa','0908888888','80 Trần Phú, Q5, TP.HCM','Quan ly','hoa','123456');
+('NV001',N'Nguyễn Văn An','0901111111',N'10 Lê Duẩn, Q1, TP.HCM','Quan ly','an','123456'),
+('NV002',N'Trần Thị Bình','0902222222',N'20 Điện Biên Phủ, Q3, TP.HCM','Nhan vien','binh','123456'),
+('NV003',N'Lê Văn Cường','0903333333',N'30 Võ Văn Tần, Q3, TP.HCM','Nhan vien','cuong','123456'),
+('NV004',N'Phạm Thị Dung','0904444444',N'40 Nam Kỳ Khởi Nghĩa, Q1, TP.HCM','Nhan vien','dung','123456'),
+('NV005',N'Hoàng Văn Em','0905555555',N'50 Pasteur, Q1, TP.HCM','Nhan vien','em','123456'),
+('NV006',N'Đặng Thị Phương','0906666666',N'60 Nguyễn Đình Chiểu, Q3, TP.HCM','Nhan vien','phuong','123456'),
+('NV007',N'Bùi Văn Giang','0907777777',N'70 Lý Tự Trọng, Q1, TP.HCM','Nhan vien','giang','123456'),
+('NV008',N'Ngô Thị Hoa','0908888888',N'80 Trần Phú, Q5, TP.HCM','Quan ly','hoa','123456');
 GO
 
 INSERT INTO tblKhachHang VALUES
-('KH001','Nguyễn Thị Mai','0911111111','5 Hoàng Diệu, Q4, TP.HCM'),
-('KH002','Trần Văn Nam','0922222222','15 Bến Vân Đồn, Q4, TP.HCM'),
-('KH003','Lê Thị Oanh','0933333333','25 Khánh Hội, Q4, TP.HCM'),
-('KH004','Phạm Văn Phúc','0944444444','35 Tôn Đức Thắng, Q1, TP.HCM'),
-('KH005','Hoàng Thị Quỳnh','0955555555','45 Hai Bà Trưng, Q1, TP.HCM'),
-('KH006','Đặng Văn Long','0966666666','55 Đinh Tiên Hoàng, Q1, TP.HCM'),
-('KH007','Bùi Thị Sen','0977777777','65 Trần Quang Khải, Q1, TP.HCM'),
-('KH008','Ngô Văn Tùng','0988888888','75 Lê Thánh Tôn, Q1, TP.HCM'),
-('KH009','Vũ Thị Uyên','0999999999','85 Ngô Đức Kế, Q1, TP.HCM'),
-('KH010','Dương Văn Việt','0910000000','95 Mạc Thị Bưởi, Q1, TP.HCM');
+('KH001',N'Nguyễn Thị Mai','0911111111',N'5 Hoàng Diệu, Q4, TP.HCM'),
+('KH002',N'Trần Văn Nam','0922222222',N'15 Bến Vân Đồn, Q4, TP.HCM'),
+('KH003',N'Lê Thị Oanh','0933333333',N'25 Khánh Hội, Q4, TP.HCM'),
+('KH004',N'Phạm Văn Phúc','0944444444',N'35 Tôn Đức Thắng, Q1, TP.HCM'),
+('KH005',N'Hoàng Thị Quỳnh','0955555555',N'45 Hai Bà Trưng, Q1, TP.HCM'),
+('KH006',N'Đặng Văn Long','0966666666',N'55 Đinh Tiên Hoàng, Q1, TP.HCM'),
+('KH007',N'Bùi Thị Sen','0977777777',N'65 Trần Quang Khải, Q1, TP.HCM'),
+('KH008',N'Ngô Văn Tùng','0988888888',N'75 Lê Thánh Tôn, Q1, TP.HCM'),
+('KH009',N'Vũ Thị Uyên','0999999999',N'85 Ngô Đức Kế, Q1, TP.HCM'),
+('KH010',N'Dương Văn Việt','0910000000',N'95 Mạc Thị Bưởi, Q1, TP.HCM');
 GO
 
 INSERT INTO tblHang VALUES
@@ -565,3 +565,184 @@ BEGIN
 END;
 GO
 
+
+/* =====================================================
+   4. BỔ SUNG TÀI KHOẢN VÀ MẬT KHẨU CHO tblKhachHang
+   ===================================================== */
+
+IF COL_LENGTH('dbo.tblKhachHang', 'TaiKhoan') IS NULL
+    ALTER TABLE dbo.tblKhachHang
+    ADD TaiKhoan NVARCHAR(50) NULL;
+GO
+
+IF COL_LENGTH('dbo.tblKhachHang', 'MatKhau') IS NULL
+    ALTER TABLE dbo.tblKhachHang
+    ADD MatKhau NVARCHAR(255) NULL;
+GO
+
+/* Đảm bảo mỗi khách hàng có một tài khoản riêng */
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'UX_tblKhachHang_TaiKhoan'
+      AND object_id = OBJECT_ID('dbo.tblKhachHang')
+)
+BEGIN
+    CREATE UNIQUE INDEX UX_tblKhachHang_TaiKhoan
+    ON dbo.tblKhachHang(TaiKhoan)
+    WHERE TaiKhoan IS NOT NULL;
+END;
+GO
+
+USE QLCuaHangBanDienThoai;
+GO
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'mai.nguyen',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH001';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'nam.tran',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH002';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'oanh.le',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH003';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'phuc.pham',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH004';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'quynh.hoang',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH005';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'long.dang',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH006';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'sen.bui',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH007';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'tung.ngo',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH008';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'uyen.vu',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH009';
+
+UPDATE dbo.tblKhachHang SET
+    TaiKhoan = N'viet.duong',
+    MatKhau = N'123456'
+WHERE MaKH = 'KH010';
+GO
+
+USE QLCuaHangBanDienThoai;
+GO
+
+IF COL_LENGTH('dbo.tblHang', 'TenAnh') IS NULL
+BEGIN
+    ALTER TABLE dbo.tblHang
+    ADD TenAnh NVARCHAR(255) NULL;
+END;
+GO
+
+UPDATE tblHang
+SET TenAnh = 'iphone18.jpg'
+WHERE MaHang = 'SP001';
+
+UPDATE tblHang
+SET TenAnh = 'samsung_s25.jpg'
+WHERE MaHang = 'SP002';
+
+
+USE QLCuaHangBanDienThoai;
+GO
+
+-- Bổ sung trạng thái thanh toán nếu chưa có
+IF COL_LENGTH('dbo.tblHoaDonBan', 'TrangThaiThanhToan') IS NULL
+BEGIN
+    ALTER TABLE dbo.tblHoaDonBan
+    ADD TrangThaiThanhToan NVARCHAR(30)
+        NOT NULL
+        CONSTRAINT DF_tblHoaDonBan_TrangThaiThanhToan
+        DEFAULT N'Chưa thanh toán';
+END
+GO
+
+-- Bổ sung phương thức thanh toán
+IF COL_LENGTH('dbo.tblHoaDonBan', 'PhuongThucThanhToan') IS NULL
+BEGIN
+    ALTER TABLE dbo.tblHoaDonBan
+    ADD PhuongThucThanhToan NVARCHAR(50) NULL;
+END
+GO
+
+-- Bổ sung ngày thanh toán
+IF COL_LENGTH('dbo.tblHoaDonBan', 'NgayThanhToan') IS NULL
+BEGIN
+    ALTER TABLE dbo.tblHoaDonBan
+    ADD NgayThanhToan DATETIME NULL;
+END
+GO
+
+-- Kiểm tra nhân viên hệ thống NV001 có tồn tại không
+SELECT MaNV, TenNV
+FROM dbo.tblNhanVien
+WHERE MaNV = 'NV001';
+GO
+
+
+USE QLCuaHangBanDienThoai;
+GO
+
+-- Kiểm tra các cột thanh toán
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'tblHoaDonBan';
+GO
+
+-- Kiểm tra nhân viên hệ thống NV001
+SELECT *
+FROM tblNhanVien
+WHERE MaNV = 'NV001';
+GO
+
+-- Kiểm tra cấu trúc chi tiết hóa đơn
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'tblChiTietHDB';
+GO
+
+USE QLCuaHangBanDienThoai;
+GO
+
+IF COL_LENGTH('dbo.tblHoaDonBan', 'PhuongThucThanhToan') IS NULL
+BEGIN
+    ALTER TABLE dbo.tblHoaDonBan
+    ADD PhuongThucThanhToan NVARCHAR(50) NULL;
+END
+GO
+
+UPDATE tblHoaDonBan
+SET TrangThaiThanhToan = N'Đã thanh toán',
+    NgayThanhToan = GETDATE()
+WHERE MaHDB = 'MÃ_HÓA_ĐƠN'
+  AND TrangThaiThanhToan = N'Chờ xác nhận chuyển khoản';

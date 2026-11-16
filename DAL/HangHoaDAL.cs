@@ -24,7 +24,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 new SqlParameter("@MaDungLuong", (object?)h.MaDungLuong ?? DBNull.Value),
                 new SqlParameter("@DonGiaNhap", h.GiaNhap),
                 new SqlParameter("@DonGiaBan", h.GiaBan),
-                new SqlParameter("@SoLuongTon", h.SoLuongTon)
+                new SqlParameter("@SoLuongTon", h.SoLuongTon),
+                new SqlParameter("@TenAnh", string.IsNullOrWhiteSpace(h.TenAnh) ? (object)DBNull.Value : h.TenAnh)
             };
             return DatabaseAccess.ThucThiProc("sp_ThemHang", pars);
         }
@@ -41,7 +42,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 new SqlParameter("@MaDungLuong", (object?)h.MaDungLuong ?? DBNull.Value),
                 new SqlParameter("@DonGiaNhap", h.GiaNhap),
                 new SqlParameter("@DonGiaBan", h.GiaBan),
-                new SqlParameter("@SoLuongTon", h.SoLuongTon)
+                new SqlParameter("@SoLuongTon", h.SoLuongTon),
+                new SqlParameter("@TenAnh", string.IsNullOrWhiteSpace(h.TenAnh) ? (object)DBNull.Value : h.TenAnh)
             };
             return DatabaseAccess.ThucThiProc("sp_CapNhatHang", pars);
         }

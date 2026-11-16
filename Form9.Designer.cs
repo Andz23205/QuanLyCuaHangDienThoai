@@ -38,6 +38,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
             button1 = new Button();
             button2 = new Button();
+            button3 = new Button();
 
             panelHeader.SuspendLayout();
             panelContent.SuspendLayout();
@@ -142,14 +143,14 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
                 Color.FromArgb(110, 125, 145);
 
             // ==============================
-            // LABEL MÃ NHÂN VIÊN
+            // LABEL NHẬP TÀI KHOẢN
             // ==============================
 
             label2.AutoSize = true;
 
             label2.Location = new Point(38, 125);
 
-            label2.Text = "MÃ NHÂN VIÊN";
+            label2.Text = "NHẬP TÀI KHOẢN";
 
             label2.Font =
                 new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -219,61 +220,62 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             // BUTTON ĐĂNG NHẬP
             // ==============================
 
-            button1.Location =
-                new Point(40, 330);
-
-            button1.Size =
-                new Size(295, 48);
+            button1.Location = new Point(40, 330);
+            button1.Size = new Size(150, 48);
 
             button1.Text = "ĐĂNG NHẬP";
-
             button1.Name = "button1";
 
-            button1.Font =
-                new Font("Segoe UI", 11F, FontStyle.Bold);
-
+            button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             button1.ForeColor = Color.White;
-
-            button1.BackColor =
-                Color.FromArgb(8, 120, 209);
+            button1.BackColor = Color.FromArgb(8, 120, 209);
 
             button1.FlatStyle = FlatStyle.Flat;
-
             button1.FlatAppearance.BorderSize = 0;
 
             button1.Cursor = Cursors.Hand;
-
             button1.UseVisualStyleBackColor = false;
+
+
+            // ==============================
+            // BUTTON ĐĂNG KÝ
+            // ==============================
+
+            button3.Location = new Point(205, 330);
+            button3.Size = new Size(150, 48);
+
+            button3.Text = "ĐĂNG KÝ";
+            button3.Name = "button3";
+
+            button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            button3.ForeColor = Color.White;
+            button3.BackColor = Color.FromArgb(16, 160, 110);
+
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.FlatAppearance.BorderSize = 0;
+
+            button3.Cursor = Cursors.Hand;
+            button3.UseVisualStyleBackColor = false;
+
 
             // ==============================
             // BUTTON THOÁT
             // ==============================
 
-            button2.Location =
-                new Point(355, 330);
-
-            button2.Size =
-                new Size(175, 48);
+            button2.Location = new Point(370, 330);
+            button2.Size = new Size(160, 48);
 
             button2.Text = "THOÁT";
-
             button2.Name = "button2";
 
-            button2.Font =
-                new Font("Segoe UI", 10F, FontStyle.Bold);
-
-            button2.ForeColor =
-                Color.FromArgb(60, 75, 90);
-
-            button2.BackColor =
-                Color.FromArgb(231, 237, 245);
+            button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            button2.ForeColor = Color.FromArgb(60, 75, 90);
+            button2.BackColor = Color.FromArgb(231, 237, 245);
 
             button2.FlatStyle = FlatStyle.Flat;
-
             button2.FlatAppearance.BorderSize = 0;
 
             button2.Cursor = Cursors.Hand;
-
             button2.UseVisualStyleBackColor = false;
 
             // ==============================
@@ -289,6 +291,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
             groupBox1.Controls.Add(txtMatKhau);
 
             groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(button3);
             groupBox1.Controls.Add(button2);
 
             panelContent.Controls.Add(groupBox1);
@@ -330,5 +333,9 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
 
         private Button button1;
         private Button button2;
+
+        private Button button3;
+
+
     }
 }

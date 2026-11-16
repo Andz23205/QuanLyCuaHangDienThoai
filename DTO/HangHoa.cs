@@ -6,6 +6,7 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
     {
         public string MaHang { get; set; } = "";
         public string TenHang { get; set; } = "";
+        public string TenAnh { get; set; } = "";
         public string? MaHangSX { get; set; }
         public string? MaLoai { get; set; }
         public string? MaMau { get; set; }
@@ -13,6 +14,8 @@ namespace Cửa_Hàng_Bán_Điện_Thoại___Nhóm_4
         public decimal GiaNhap { get; set; }
         public decimal GiaBan { get; set; }
         public int SoLuongTon { get; set; }
+
+
 
         public HangHoa() { }
 
